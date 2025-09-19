@@ -1,11 +1,16 @@
+######### application-test.yml
 spring:
+  config:
+    activate:
+      on-profile:
+        - test
   datasource:
     url: jdbc:h2:mem:testdb; # use in memory db
     driverClassName: org.h2.Driver
   jpa:
     database-platform: org.hibernate.dialect.H2Dialect
     hibernate:
-      ddl-auto: none # disable DB schema creation from entity
+      ddl-auto: update # disable DB schema creation from entity
   h2:
     console:
       enabled: true # enable h2 web console

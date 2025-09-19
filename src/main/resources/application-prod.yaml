@@ -1,11 +1,9 @@
-pring:
-  profiles:
-    active: ${SPRING_PROFILES_ACTIVE:dev}
+spring:
   datasource:
-    url: ${MYSQL_PUBLIC_URL}
+    url: ${MYSQL_PROD_PUBLIC_URL}
     driver-class-name: com.mysql.cj.jdbc.Driver
-    username: ${MYSQLUSER:root}
-    password: ${MYSQL_ROOT_PASSWORD}
+    username: ${MYSQL_PROD_USER:root}
+    password: ${MYSQL_PROD_ROOT_PASSWORD}
   jpa:
     show-sql: true
     hibernate:
