@@ -1,4 +1,4 @@
-package oocl.ltravelbackend.service;
+package oocl.ltravelbackend;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
