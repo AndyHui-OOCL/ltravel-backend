@@ -13,7 +13,7 @@ permissions:
   pull-requests: write
 
 jobs:
-  test:
+  unit-test:
     runs-on: ubuntu-latest
 
     steps:
@@ -36,21 +36,60 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-gradle-
 
-      - name: Run tests
-        run: ./gradlew test
+      - name: Make gradlew executable
+        run: chmod +x ./gradlew
 
-      - name: Generate test report
+      - name: Run unit tests
+        run: ./gradlew test --tests "oocl.ltravelbackend.service.*"
+
+      - name: Generate unit test report
         uses: dorny/test-reporter@v1
         if: success() || failure()
         with:
-          name: "[Release Report] JUnit Tests Report"
+          name: "[Report] Unit Tests Report"
           path: build/test-results/test/*.xml
           reporter: java-junit
 
+  integration-test:
+    needs: [ unit-test ]
+    runs-on: ubuntu-latest
 
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: Cache Gradle packages
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+
+      - name: Make gradlew executable
+        run: chmod +x ./gradlew
+
+      - name: Run integration tests
+        run: ./gradlew test --tests "oocl.ltravelbackend.integration.*"
+
+      - name: Generate integration test report
+        uses: dorny/test-reporter@v1
+        if: success() || failure()
+        with:
+          name: "[Report] Integration Tests Report"
+          path: build/test-results/test/*.xml
+          reporter: java-junit
 
   deploy-uat:
-    needs: [test]
+    needs: [unit-test, integration-test]
     runs-on: ubuntu-latest
     environment: uat
     if: github.ref == 'refs/heads/release'
@@ -116,7 +155,7 @@ jobs:
           exit 1
 
   deploy-prod:
-    needs: [test, deploy-uat]
+    needs: [unit-test, integration-test, deploy-uat]
     runs-on: ubuntu-latest
     environment: prod
     if: github.ref == 'refs/heads/release'
