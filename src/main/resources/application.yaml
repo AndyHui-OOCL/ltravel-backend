@@ -1,4 +1,4 @@
-pring:
+spring:
   profiles:
     active: ${SPRING_PROFILES_ACTIVE:dev}
   datasource:
