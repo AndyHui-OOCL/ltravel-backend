@@ -2,12 +2,14 @@ package oocl.ltravelbackend.model.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 @Entity
 @Table(name = "travel_components")
 public class TravelComponent {
@@ -26,5 +28,5 @@ public class TravelComponent {
   private String futureOccupation;
   private Long travelDayId;
   private Long imageId;
-  private boolean Location;
+  private boolean location;
 }

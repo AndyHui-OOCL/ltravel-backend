@@ -1,5 +1,6 @@
 package oocl.ltravelbackend.controller;
 
+import oocl.ltravelbackend.model.entity.TravelComponent;
 import oocl.ltravelbackend.model.entity.TravelPlan;
 import oocl.ltravelbackend.service.TravelDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,15 +12,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/travelDetail")
+@RequestMapping("/travel-detail")
 public class TravelDetailController {
 
     @Autowired
     private TravelDetailService travelDetailService;
 
-    @GetMapping("/{id}")
+    @GetMapping("/plan/{id}")
     public ResponseEntity<TravelPlan> getTravelPlan(@PathVariable Long id) {
         return ResponseEntity.status(HttpStatus.OK).body(travelDetailService.getTravelPlan(id));
+    }
+
+    @GetMapping("/component/{id}")
+    public ResponseEntity<TravelComponent> getTravelComponent(@PathVariable Long id) {
+        return ResponseEntity.status(HttpStatus.OK).body(travelDetailService.getTravelComponent(id));
     }
 
 }

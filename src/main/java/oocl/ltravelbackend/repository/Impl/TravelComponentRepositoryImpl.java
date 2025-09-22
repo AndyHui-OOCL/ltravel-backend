@@ -12,7 +12,17 @@ public class TravelComponentRepositoryImpl implements TravelComponentRepository 
     private TravelComponentJpaRepository travelComponentJpaRepository;
 
     @Override
+    public void deleteAll() {
+        travelComponentJpaRepository.deleteAll();
+    }
+
+    @Override
     public TravelComponent getTravelComponentDetailById(Long id) {
         return travelComponentJpaRepository.findById(id).orElse(null);
+    }
+
+    @Override
+    public TravelComponent save(TravelComponent travelComponent) {
+        return travelComponentJpaRepository.save(travelComponent);
     }
 }
