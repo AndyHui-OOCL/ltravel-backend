@@ -15,7 +15,7 @@ public class TravelPlanDetailDTO {
   private String title;
   private String description;
   private int totalTravelDay;
-  private int totalTravelComponent;//总行程数
+  private int totalTravelComponent;
   private boolean isLocalTravel;
   private boolean isPopular;
   private Map<Integer, List<String>> route;

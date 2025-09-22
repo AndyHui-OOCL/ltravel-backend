@@ -2,7 +2,6 @@ package oocl.ltravelbackend.service;
 
 import java.util.List;
 import oocl.ltravelbackend.common.exception.InvalidTravelPlanPaginationInput;
-import oocl.ltravelbackend.model.dto.BasicTravelPlanRes;
 import oocl.ltravelbackend.model.dto.TravelPlanDetailDTO;
 import oocl.ltravelbackend.model.entity.TravelDay;
 import oocl.ltravelbackend.model.entity.TravelPlan;

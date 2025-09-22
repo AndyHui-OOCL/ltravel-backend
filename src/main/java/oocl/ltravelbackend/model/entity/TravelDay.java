@@ -16,10 +16,8 @@ public class TravelDay {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private int dayNum;
-    @Column(name = "travel_plan_id")
+    private int componentOrder;
     private Long travelPlanId;
+    private Long TravelComponentId;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "travel_day_id")
-    private List<TravelComponent> travelComponent;
 }
