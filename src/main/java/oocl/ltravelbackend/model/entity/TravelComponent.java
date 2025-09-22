@@ -26,4 +26,5 @@ public class TravelComponent {
   private String futureOccupation;
   private Long travelDayId;
   private Long imageId;
+  private boolean Location;
 }
