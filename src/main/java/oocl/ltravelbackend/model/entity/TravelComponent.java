@@ -20,7 +20,6 @@ public class TravelComponent {
   private String name;
   private String description;
   private float rating;
-  private int componentOrder;
   private String openTime;
   private String address;
   private int suggestionPlayTime;

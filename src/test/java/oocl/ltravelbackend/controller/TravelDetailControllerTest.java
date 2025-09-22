@@ -34,14 +34,13 @@ class TravelDetailControllerTest {
                 .name("大连星海湾广场")
                 .description("亚洲最大的城市广场")
                 .rating(5)
-                .componentOrder(1)
                 .openTime("09:00")
                 .address("demo")
                 .suggestionPlayTime(60)
                 .wayOfCommute("demo")
                 .currentOccupation("demo")
                 .futureOccupation("demo")
-                .travelDayId(1L)
+                .images(null)
                 .location(true)
                 .build();
         long id = travelComponentRepository.save(travelComponent).getId();
@@ -53,15 +52,13 @@ class TravelDetailControllerTest {
                             "name": "大连星海湾广场",
                             "description": "亚洲最大的城市广场",
                             "rating": 5.0,
-                            "componentOrder": 1,
                             "openTime": "09:00",
                             "address": "demo",
                             "suggestionPlayTime": 60,
                             "wayOfCommute": "demo",
                             "currentOccupation": "demo",
                             "futureOccupation": "demo",
-                            "travelDayId": 1,
-                            "imageId": null,
+                            "images": [],
                             "location": true
                         }
                         """.formatted(id)));

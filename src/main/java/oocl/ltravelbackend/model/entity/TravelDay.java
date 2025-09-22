@@ -1,7 +1,6 @@
 package oocl.ltravelbackend.model.entity;
 
 import jakarta.persistence.*;
-import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -18,6 +17,6 @@ public class TravelDay {
     private int dayNum;
     private int componentOrder;
     private Long planId;
-    private Long TravelComponentId;
+    private Long travelComponentId;
 
 }
