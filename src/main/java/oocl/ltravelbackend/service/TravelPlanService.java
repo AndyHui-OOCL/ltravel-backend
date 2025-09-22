@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class TravelPlanService {
     @Autowired
-    TravelPlanRepository travelPlanRepository;
+    private TravelPlanRepository travelPlanRepository;
     public BasicTravelPlanRes getPaginatedBasicTravelPlans(int page, int size) {
         if(page < 0 || size <= 0) {
             throw new InvalidTravelPlanPaginationInput("Page number cannot be negative and page size must be grater than zero");
