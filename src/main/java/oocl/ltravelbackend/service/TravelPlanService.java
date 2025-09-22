@@ -1,6 +1,6 @@
 package oocl.ltravelbackend.service;
 
-import oocl.ltravelbackend.common.InvalidTravelPlanPaginationInput;
+import oocl.ltravelbackend.common.exception.InvalidTravelPlanPaginationInput;
 import oocl.ltravelbackend.model.dto.BasicTravelPlanRes;
 import oocl.ltravelbackend.model.entity.TravelPlan;
 import oocl.ltravelbackend.repository.TravelPlanRepository;
