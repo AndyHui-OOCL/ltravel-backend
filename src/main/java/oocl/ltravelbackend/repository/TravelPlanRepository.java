@@ -1,10 +1,11 @@
 package oocl.ltravelbackend.repository;
 
-import oocl.ltravelbackend.model.dto.BasicTravelPlanRes;
 import oocl.ltravelbackend.model.entity.TravelPlan;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 public interface TravelPlanRepository {
-    BasicTravelPlanRes getPaginatedBasicTravelPlans(int page, int size);
+    Page<TravelPlan> findTravelPlansByPagination(Pageable pageParams);
 
     TravelPlan getTravelPlanDetailById(Long id);
 }
