@@ -1,7 +1,7 @@
 package oocl.ltravelbackend.service;
 
 import oocl.ltravelbackend.model.dto.AIChatDto;
-import oocl.ltravelbackend.model.entity.Image;
+import oocl.ltravelbackend.model.entity.PlanImage;
 import oocl.ltravelbackend.model.entity.TravelPlan;
 import oocl.ltravelbackend.repository.AIChatRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,8 +21,8 @@ public class AIChatService {
         List<TravelPlan> travelPlans = aiChatRepository.findChatByIds(ids);
 
         for (TravelPlan travelPlan : travelPlans) {
-            Image firstImage = null;
-            List<Image> images = travelPlan.getImages();
+            PlanImage firstImage = null;
+            List<PlanImage> images = travelPlan.getImages();
             if (images != null && !images.isEmpty()) {
                 firstImage = images.get(0);
             }

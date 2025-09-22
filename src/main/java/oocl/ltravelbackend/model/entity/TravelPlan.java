@@ -25,6 +25,7 @@ public class TravelPlan {
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "travel_plan_id")
     private List<TravelDay> travelDays;
+
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "travel_plan_id")
     private List<PlanImage> images;
