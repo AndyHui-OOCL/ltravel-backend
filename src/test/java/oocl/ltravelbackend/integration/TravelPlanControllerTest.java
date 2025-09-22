@@ -16,7 +16,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @ActiveProfiles("test")
 @SpringBootTest
@@ -107,7 +108,7 @@ public class TravelPlanControllerTest {
     }
 
     @Test
-    void should_return_correct_total_travel_day_when_get_overview_given_travel_plan_with_multiple_days() throws Exception{
+    void should_return_correct_total_travel_day_when_get_overview_given_travel_plan_with_multiple_days() throws Exception {
         TravelPlan plan = TravelPlan.builder()
                 .cityName("Rome")
                 .description("Ancient city exploration")
