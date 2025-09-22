@@ -1,6 +1,7 @@
 package oocl.ltravelbackend.controller;
 
 import lombok.RequiredArgsConstructor;
+import oocl.ltravelbackend.common.exception.InvalidTravelPlanIdInputException;
 import oocl.ltravelbackend.model.entity.OfficialComment;
 import oocl.ltravelbackend.service.OfficialCommentService;
 import org.springframework.context.annotation.Configuration;
@@ -15,6 +16,9 @@ public class OfficialCommentController {
     private final OfficialCommentService officialCommentService;
     @GetMapping("/official-comment/{travelPlanId}")
     public OfficialComment getOfficialComment(@PathVariable Long travelPlanId) {
+        if (travelPlanId == null || travelPlanId <= 0) {
+            throw new InvalidTravelPlanIdInputException("Travel Plan ID is invalid.");
+        }
         return officialCommentService.getOfficialCommentByTravelPlanId(travelPlanId).orElse(null);
     }
 }

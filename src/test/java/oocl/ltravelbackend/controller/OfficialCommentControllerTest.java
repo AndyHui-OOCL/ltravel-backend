@@ -40,8 +40,8 @@ class OfficialCommentControllerTest {
                 .travelPlanId(1L)
                 .build();
         long id=officialCommentRepository.save(officialComment).getId();
-        mockMvc.perform(org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get("/official-comment")
-                        .param("travelPlanId","1"))
+        mockMvc.perform(org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get("/official-comment/1")
+                        )
                 .andExpect(org.springframework.test.web.servlet.result.MockMvcResultMatchers.status().isOk())
                 .andExpect(org.springframework.test.web.servlet.result.MockMvcResultMatchers.content().json("""
                         {
