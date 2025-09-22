@@ -1,12 +1,11 @@
 package oocl.ltravelbackend.model.entity;
 
 import jakarta.persistence.*;
+import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.util.List;
 
 @Data
 @Entity
@@ -21,12 +20,12 @@ public class TravelPlan {
     private String title;
     private String cityName;
     private String description;
-    private int totalTravelDay;
-    private int totalTravelComponent;
     private boolean isLocalTravel;
     private boolean isPopular;
-
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "travel_plan_id")
-    private List<Image> images;
+    private List<TravelDay> travelDays;
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "travel_plan_id")
+    private List<PlanImage> images;
 }

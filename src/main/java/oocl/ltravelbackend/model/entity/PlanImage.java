@@ -6,14 +6,16 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
-@Table(name = "travel_component_images")
-public class TravelComponentImage {
+@Table(name = "plan_images")
+public class PlanImage {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
-  private Long travelComponentId;
-  private Long imageId;
+  private String name;
+  private String url;
+  @Column(name = "travel_plan_id")
+  private Long travelPlanId;
 }

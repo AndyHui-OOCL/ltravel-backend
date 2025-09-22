@@ -1,6 +1,7 @@
 package oocl.ltravelbackend.model.entity;
 
 import jakarta.persistence.*;
+import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -26,7 +27,10 @@ public class TravelComponent {
   private String wayOfCommute;
   private String currentOccupation;
   private String futureOccupation;
+  @Column(name = "travel_day_id")
   private Long travelDayId;
-  private Long imageId;
   private boolean location;
+  @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+  @JoinColumn(name = "travel_component_id")
+  private List<ComponentImage> images;
 }
