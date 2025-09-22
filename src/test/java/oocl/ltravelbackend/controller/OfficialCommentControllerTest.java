@@ -40,8 +40,8 @@ class OfficialCommentControllerTest {
                 .travelPlanId(1L)
                 .build();
         long id=officialCommentRepository.save(officialComment).getId();
-        mockMvc.perform(org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get("/official-comment")
-                        .param("travelPlanId","1"))
+        mockMvc.perform(org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get("/official-comment/1")
+                        )
                 .andExpect(org.springframework.test.web.servlet.result.MockMvcResultMatchers.status().isOk())
                 .andExpect(org.springframework.test.web.servlet.result.MockMvcResultMatchers.content().json("""
                         {
@@ -53,5 +53,19 @@ class OfficialCommentControllerTest {
                             "travelPlanId": 1
                         }
                         """.formatted(id)));
+    }
+    @Test
+    void should_return_400_when_find_given_a_invalid_travel_plan_id() throws Exception {
+        //test implement
+        mockMvc.perform(org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get("/official-comment/-1")
+                )
+                .andExpect(org.springframework.test.web.servlet.result.MockMvcResultMatchers.status().isBadRequest());
+    }
+    @Test
+    void should_return_204_when_find_given_a_non_exist_travel_plan_id() throws Exception {
+        //test implement
+        mockMvc.perform(org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get("/official-comment/1")
+                )
+                .andExpect(org.springframework.test.web.servlet.result.MockMvcResultMatchers.status().isNoContent());
     }
 }
