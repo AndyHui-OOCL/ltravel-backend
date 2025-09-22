@@ -8,11 +8,11 @@ import java.util.List;
 
 @Data
 @Builder
-public class BasicTravelPlanRes {
-    private int id;
+public class TravelPlanOverviewDto {
+    private long id;
     private String cityName;
     private String description;
-    private List<PlanImage> travePlanPlanImages;
     private int totalTravelDay;
     private int totalTravelComponent;
+    private List<PlanImage> travePlanPlanImages;
 }

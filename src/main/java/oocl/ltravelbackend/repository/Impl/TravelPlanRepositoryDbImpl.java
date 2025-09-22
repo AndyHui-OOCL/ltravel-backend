@@ -4,10 +4,10 @@ import oocl.ltravelbackend.model.entity.TravelPlan;
 import oocl.ltravelbackend.repository.TravelPlanRepository;
 import oocl.ltravelbackend.repository.dao.TravelPlanJpaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 
 @Repository
@@ -16,8 +16,8 @@ public class TravelPlanRepositoryDbImpl implements TravelPlanRepository {
     private TravelPlanJpaRepository travelPlanJpaRepository;
 
     @Override
-    public Page<TravelPlan> findTravelPlansByPagination(Pageable pageParams) {
-        return travelPlanJpaRepository.findAll(pageParams);
+    public List<TravelPlan> findTravelPlansByPagination(Pageable pageParams) {
+        return travelPlanJpaRepository.findAll(pageParams).stream().toList();
     }
 
     @Override
