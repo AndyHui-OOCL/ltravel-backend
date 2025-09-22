@@ -13,4 +13,6 @@ public class BasicTravelPlanRes {
     private String cityName;
     private String description;
     private List<Image> travePlanImages;
+    private int totalTravelDay;
+    private int totalTravelComponent;
 }
