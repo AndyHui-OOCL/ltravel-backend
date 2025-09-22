@@ -54,4 +54,11 @@ class OfficialCommentControllerTest {
                         }
                         """.formatted(id)));
     }
+    @Test
+    void should_return_400_when_find_given_a_invalid_travel_plan_id() throws Exception {
+        //test implement
+        mockMvc.perform(org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get("/official-comment/-1")
+                )
+                .andExpect(org.springframework.test.web.servlet.result.MockMvcResultMatchers.status().isBadRequest());
+    }
 }
