@@ -8,11 +8,12 @@ import java.util.stream.Collectors;
 
 import oocl.ltravelbackend.common.exception.InvalidTravelPlanIdInputException;
 import oocl.ltravelbackend.common.exception.InvalidTravelPlanPaginationInputException;
+import oocl.ltravelbackend.model.dto.TravelLocationEventDTO;
 import oocl.ltravelbackend.model.dto.TravelPlanDetailDTO;
 import oocl.ltravelbackend.model.dto.TravelPlanOverviewDto;
+import oocl.ltravelbackend.model.entity.ComponentImage;
 import oocl.ltravelbackend.model.entity.TravelDay;
 import oocl.ltravelbackend.model.entity.TravelPlan;
-import oocl.ltravelbackend.repository.TravelDayRepository;
 import oocl.ltravelbackend.repository.TravelPlanRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -23,9 +24,6 @@ public class TravelPlanService {
 
     @Autowired
     private TravelPlanRepository travelPlanRepository;
-
-    @Autowired
-    private TravelDayRepository travelDayRepository;
 
     public List<TravelPlanOverviewDto> getPaginatedBasicTravelPlans(int page, int size) {
         if (page < 1 || size <= 0) {
@@ -62,7 +60,7 @@ public class TravelPlanService {
         int highestDay = travelPlan.getTravelDays().stream()
                 .mapToInt(TravelDay::getDayNum)
                 .max()
-                .orElse(0); 
+                .orElse(0);
 
         List<TravelDay> travelDays = travelPlan.getTravelDays();
         Map<Integer, List<String>> route = travelDays.stream()
@@ -76,6 +74,16 @@ public class TravelPlanService {
                         )
                 ));
 
+        List<TravelLocationEventDTO> travelLocationEvents = travelDays.stream().filter(day -> day.getTravelComponent().getLocation() == true)
+          .map(day -> TravelLocationEventDTO.builder()
+            .eventName(day.getTravelComponent().getName())
+            .description(day.getTravelComponent().getDescription())
+            .locationImages(day.getTravelComponent().getImages().stream()
+              .map(ComponentImage::getUrl)
+              .collect(Collectors.toList()))
+            .build())
+          .collect(Collectors.toList());
+
         return TravelPlanDetailDTO.builder()
                 .title(travelPlan.getTitle())
                 .description(travelPlan.getDescription())
@@ -84,6 +92,7 @@ public class TravelPlanService {
                 .totalTravelDay(highestDay)
                 .totalTravelComponent(travelPlan.getTravelDays().size())
                 .route(route)
+                .travelLocationEvents(travelLocationEvents)
                 .build();
 
     }
