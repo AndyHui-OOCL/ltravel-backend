@@ -3,7 +3,7 @@ package oocl.ltravelbackend.common.handler;
 import lombok.extern.slf4j.Slf4j;
 import oocl.ltravelbackend.common.exception.InvalidTravelComponentIdInputException;
 import oocl.ltravelbackend.common.exception.InvalidTravelPlanIdInputException;
-import oocl.ltravelbackend.common.exception.InvalidTravelPlanPaginationInput;
+import oocl.ltravelbackend.common.exception.InvalidTravelPlanPaginationInputException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -18,7 +18,7 @@ public class GlobalExceptionHandler {
         return ex.getMessage();
     }
 
-    @ExceptionHandler(InvalidTravelPlanPaginationInput.class)
+    @ExceptionHandler(InvalidTravelPlanPaginationInputException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public String handleInvalidTravelPlanPaginationInput(Exception ex) {
         return ex.getMessage();

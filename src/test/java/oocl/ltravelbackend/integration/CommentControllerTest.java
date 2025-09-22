@@ -1,5 +1,6 @@
-package oocl.ltravelbackend.controller;
+package oocl.ltravelbackend.integration;
 
+import oocl.ltravelbackend.controller.CommentController;
 import oocl.ltravelbackend.model.entity.Comment;
 import oocl.ltravelbackend.repository.CommentRepository;
 import org.junit.jupiter.api.BeforeEach;

@@ -24,7 +24,7 @@ public class TravelPlanController {
     }
 
     @GetMapping()
-    public ResponseEntity<List<TravelPlanOverviewDto>> getMainPageTravelOverview(
+    public ResponseEntity<List<TravelPlanOverviewDto>> getTravelPlanOverview(
             @RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "9") int size) {
         return ResponseEntity.status(HttpStatus.OK)
                 .body(travelPlanService.getPaginatedBasicTravelPlans(page, size));

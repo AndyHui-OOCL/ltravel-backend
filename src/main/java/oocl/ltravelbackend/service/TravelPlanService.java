@@ -1,6 +1,6 @@
 package oocl.ltravelbackend.service;
 
-import oocl.ltravelbackend.common.exception.InvalidTravelPlanPaginationInput;
+import oocl.ltravelbackend.common.exception.InvalidTravelPlanPaginationInputException;
 import oocl.ltravelbackend.model.dto.TravelPlanDetailDTO;
 import oocl.ltravelbackend.model.dto.TravelPlanOverviewDto;
 import oocl.ltravelbackend.model.entity.TravelDay;
@@ -19,11 +19,11 @@ public class TravelPlanService {
     private TravelPlanRepository travelPlanRepository;
 
     public List<TravelPlanOverviewDto> getPaginatedBasicTravelPlans(int page, int size) {
-        if (page < 0 || size <= 0) {
-            throw new InvalidTravelPlanPaginationInput(
-                    "Page number cannot be negative and page size must be grater than zero");
+        if (page < 1 || size <= 0) {
+            throw new InvalidTravelPlanPaginationInputException(
+                    "Page number must be greater than 0 and page size must be greater than zero");
         }
-        List<TravelPlan> result = travelPlanRepository.findTravelPlansByPagination(PageRequest.of(page, size));
+        List<TravelPlan> result = travelPlanRepository.findTravelPlansByPagination(PageRequest.of(page - 1, size));
         return result.stream().map(travelPlan -> {
             int highestDay = travelPlan.getTravelDays().stream()
                     .mapToInt(TravelDay::getDayNum)  // Assuming there's a getDay() method in TravelDay
@@ -36,6 +36,7 @@ public class TravelPlanService {
                     .description(travelPlan.getDescription())
                     .totalTravelDay(highestDay)
                     .totalTravelComponent(travelPlan.getTravelDays().size())
+                    .travePlanPlanImages(travelPlan.getImages())
                     .build();
         }).toList();
     }

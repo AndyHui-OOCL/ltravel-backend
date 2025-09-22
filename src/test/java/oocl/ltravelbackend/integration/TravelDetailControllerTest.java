@@ -1,4 +1,4 @@
-package oocl.ltravelbackend.controller;
+package oocl.ltravelbackend.integration;
 
 import oocl.ltravelbackend.model.entity.TravelComponent;
 import oocl.ltravelbackend.repository.TravelComponentRepository;
