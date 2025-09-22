@@ -61,4 +61,11 @@ class OfficialCommentControllerTest {
                 )
                 .andExpect(org.springframework.test.web.servlet.result.MockMvcResultMatchers.status().isBadRequest());
     }
+    @Test
+    void should_return_204_when_find_given_a_non_exist_travel_plan_id() throws Exception {
+        //test implement
+        mockMvc.perform(org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get("/official-comment/1")
+                )
+                .andExpect(org.springframework.test.web.servlet.result.MockMvcResultMatchers.status().isNoContent());
+    }
 }
