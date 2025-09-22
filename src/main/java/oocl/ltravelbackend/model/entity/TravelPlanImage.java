@@ -1,9 +1,6 @@
 package oocl.ltravelbackend.model.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -11,11 +8,12 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity(name = "travel_plan_images")
+@Entity
+@Table(name = "travel_plan_images")
 public class TravelPlanImage {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private int id;
-  private int travelPlanId;
-  private int imageId;
+  private Long id;
+  private Long travelPlanId;
+  private Long imageId;
 }
