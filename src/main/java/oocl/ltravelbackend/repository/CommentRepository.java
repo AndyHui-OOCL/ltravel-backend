@@ -6,7 +6,9 @@ import java.util.List;
 
 public interface CommentRepository {
     void deleteAll();
+
     Comment create(Comment comment);
+
     List<Comment> findByTravelComponentId(Long travelComponentId);
 
 }

@@ -11,11 +11,11 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "plan_images")
 public class PlanImage {
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long id;
-  private String name;
-  private String url;
-  @Column(name = "travel_plan_id")
-  private Long travelPlanId;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private String name;
+    private String url;
+    @Column(name = "travel_plan_id")
+    private Long travelPlanId;
 }

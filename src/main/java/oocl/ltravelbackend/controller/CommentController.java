@@ -15,6 +15,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class CommentController {
     private final CommentService commentService;
+
     @GetMapping("/comments/{travelComponentId}")
     public ResponseEntity<List<Comment>> getComments(@PathVariable Long travelComponentId) {
         if (travelComponentId == null || travelComponentId <= 0) {

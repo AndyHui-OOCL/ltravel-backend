@@ -89,7 +89,7 @@ jobs:
           reporter: java-junit
 
   deploy-uat:
-    needs: [unit-test, integration-test]
+    needs: [ unit-test, integration-test ]
     runs-on: ubuntu-latest
     environment: uat
     if: github.ref == 'refs/heads/release'
@@ -155,7 +155,7 @@ jobs:
           exit 1
 
   deploy-prod:
-    needs: [unit-test, integration-test, deploy-uat]
+    needs: [ unit-test, integration-test, deploy-uat ]
     runs-on: ubuntu-latest
     environment: prod
     if: github.ref == 'refs/heads/release'

@@ -17,11 +17,13 @@ public class GlobalExceptionHandler {
     public String handleInvalidTravelPlanIdInputException(Exception ex) {
         return ex.getMessage();
     }
+
     @ExceptionHandler(InvalidTravelPlanPaginationInput.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public String handleInvalidTravelPlanPaginationInput(Exception ex) {
         return ex.getMessage();
     }
+
     @ExceptionHandler(InvalidTravelComponentIdInputException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public String handleInvalidTravelComponentIdInputException(Exception ex) {

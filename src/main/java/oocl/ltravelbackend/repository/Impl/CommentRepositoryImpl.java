@@ -12,6 +12,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class CommentRepositoryImpl implements CommentRepository {
     private final CommentJPARepository commentJPARepository;
+
     @Override
     public void deleteAll() {
         commentJPARepository.deleteAll();
