@@ -39,7 +39,6 @@ public class TravelPlanService {
       travelPlanDetailDTO.setLocalTravel(travelPlan.isLocalTravel());
     }
     //setRoute
-    List<TravelDay> TravelDayList = travelDayRepository.getTravelDayIdsByTravelPlanId(id);
 
     return null;
   }

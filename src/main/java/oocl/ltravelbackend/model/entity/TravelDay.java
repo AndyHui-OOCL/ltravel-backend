@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 
 @Data
 @Entity
-@Table(name = "travel_day")
+@Table(name = "travel_days")
 @AllArgsConstructor
 @NoArgsConstructor
 public class TravelDay {
@@ -17,7 +17,7 @@ public class TravelDay {
     private Long id;
     private int dayNum;
     private int componentOrder;
-    private Long travelPlanId;
+    private Long planId;
     private Long TravelComponentId;
 
 }
