@@ -15,5 +15,8 @@ public class TravelDayRepositoryImpl implements TravelDayRepository {
   private TravelDayJpaRepository travelDayJpaRepository;
 
 
-
+  @Override
+  public List<TravelDay> getTravelDaysByTravelPlanId(Long travelPlanId) {
+    return travelDayJpaRepository.findByPlanId(travelPlanId);
+  }
 }

@@ -11,18 +11,13 @@ import lombok.NoArgsConstructor;
 @Table(name = "travel_days")
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
 public class TravelDay {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private int dayNum;
     private int componentOrder;
+    private Long planId;
+    private Long TravelComponentId;
 
-    @Column(name = "travel_plan_id")
-    private Long travelPlanId;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "travel_component_id")
-    private TravelComponent travelComponent;
 }
