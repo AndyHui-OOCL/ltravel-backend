@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @Entity
 @Table(name = "travel_plan")
@@ -23,4 +25,8 @@ public class TravelPlan {
     private int totalTravelComponent;
     private boolean isLocalTravel;
     private boolean isPopular;
+
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "travel_plan_id")
+    private List<Image> images;
 }
