@@ -15,10 +15,10 @@ public class TravelPlan {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String title;
-    private String city_name;
+    private String cityName;
     private String description;
-    private int total_travel_day;
-    private int total_travel_component;
-    private boolean is_local_travel;
-    private boolean is_popular;
+    private int totalTravelDay;
+    private int totalTravelComponent;
+    private boolean isLocalTravel;
+    private boolean isPopular;
 }
