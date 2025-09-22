@@ -6,14 +6,14 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@Entity(name = "travel_day")
+@Entity
 @Table(name = "travel_day")
 @AllArgsConstructor
 @NoArgsConstructor
 public class TravelDay {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
-    private int day_num;
-    private int travel_plan_id;
+    private Long id;
+    private int dayNum;
+    private Long travelPlanId;
 }
