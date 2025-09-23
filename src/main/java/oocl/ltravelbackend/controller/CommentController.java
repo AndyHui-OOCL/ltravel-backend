@@ -18,11 +18,7 @@ public class CommentController {
 
     @GetMapping("/comments/{travelComponentId}")
     public ResponseEntity<List<Comment>> getComments(@PathVariable Long travelComponentId) {
-        if (travelComponentId == null || travelComponentId <= 0) {
-            throw new InvalidTravelComponentIdInputException("Travel Component ID is invalid.");
-        }
-        return commentService.getCommentsByTravelComponentId(travelComponentId)
-                .map(comments -> ResponseEntity.ok(comments))
-                .orElse(ResponseEntity.noContent().build());
+
+        return ResponseEntity.ok(commentService.getCommentsByTravelComponentId(travelComponentId));
     }
 }
