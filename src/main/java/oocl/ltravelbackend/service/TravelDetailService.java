@@ -2,7 +2,10 @@ package oocl.ltravelbackend.service;
 
 import oocl.ltravelbackend.common.exception.InvalidTravelPlanIdInputException;
 import oocl.ltravelbackend.model.dto.TravelComponentDto;
+import oocl.ltravelbackend.model.dto.TravelLocationEventDTO;
+import oocl.ltravelbackend.model.dto.TravelPlanDetailDTO;
 import oocl.ltravelbackend.model.dto.TravelRouteListDto;
+import oocl.ltravelbackend.model.entity.ComponentImage;
 import oocl.ltravelbackend.model.entity.TravelComponent;
 import oocl.ltravelbackend.model.entity.TravelDay;
 import oocl.ltravelbackend.model.entity.TravelPlan;
@@ -85,7 +88,7 @@ public class TravelDetailService {
                         .wayOfCommute(day.getTravelComponent().getWayOfCommute())
                         .currentOccupation(day.getTravelComponent().getCurrentOccupation())
                         .futureOccupation(day.getTravelComponent().getFutureOccupation())
-                        .isLocation(day.getTravelComponent().getIsLocation())
+                        .location(day.getTravelComponent().getIsLocation())
                         .build())
                 .collect(Collectors.toList());
 
