@@ -6,7 +6,7 @@ create table travel_components
     current_occupation   varchar(255) null,
     description          varchar(255) null,
     future_occupation    varchar(255) null,
-    location             bit          null,
+    is_location             boolean          null,
     name                 varchar(255) null,
     open_time            varchar(255) null,
     rating               float        not null,

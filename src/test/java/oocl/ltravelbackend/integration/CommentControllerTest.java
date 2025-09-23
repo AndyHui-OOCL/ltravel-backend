@@ -5,6 +5,7 @@ import oocl.ltravelbackend.model.entity.TravelComponent;
 import oocl.ltravelbackend.model.entity.User;
 import oocl.ltravelbackend.repository.CommentRepository;
 import oocl.ltravelbackend.repository.TravelComponentRepository;
+import oocl.ltravelbackend.repository.dao.TravelDayJpaRepository;
 import oocl.ltravelbackend.repository.dao.UserJpaRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -30,11 +31,14 @@ class CommentControllerTest {
     private Long testUser1Id;
     private Long testUser2Id;
     private Long testComponentId;
+    @Autowired
+    private TravelDayJpaRepository travelDayJpaRepository;
 
     @BeforeEach
     void setUp() {
         commentRepository.deleteAll();
         userJpaRepository.deleteAll();
+        travelDayJpaRepository.deleteAll();
         travelComponentRepository.deleteAll();
 
         // Create test user
