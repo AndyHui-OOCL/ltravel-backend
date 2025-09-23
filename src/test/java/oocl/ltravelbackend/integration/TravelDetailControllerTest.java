@@ -51,7 +51,7 @@ class TravelDetailControllerTest {
                 .currentOccupation("demo")
                 .futureOccupation("demo")
                 .images(null)
-                .location(true)
+                .isLocation(true)
                 .build();
         long id = travelComponentRepository.save(travelComponent).getId();
         mockMvc.perform(get("/travel-detail/component/{id}", id))
@@ -69,7 +69,7 @@ class TravelDetailControllerTest {
                             "currentOccupation": "demo",
                             "futureOccupation": "demo",
                             "images": [],
-                            "location": true
+                            "isLocation": true
                         }
                         """.formatted(id)));
     }
