@@ -5,7 +5,6 @@ create table component_images
     name                varchar(255) null,
     travel_component_id bigint       null,
     url                 varchar(255) null,
-    constraint
+    constraint fk_component_images_travel_component_id
         foreign key (travel_component_id) references travel_components (id)
 );
-

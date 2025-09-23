@@ -5,6 +5,6 @@ create table plan_images
     name           varchar(255) null,
     travel_plan_id bigint       null,
     url            varchar(255) null,
-    constraint foreign key (travel_plan_id) references travel_plan (id)
+    constraint fk_plan_images_travel_plan_id
+        foreign key (travel_plan_id) references travel_plan (id)
 );
-

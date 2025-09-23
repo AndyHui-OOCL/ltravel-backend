@@ -2,7 +2,10 @@ package oocl.ltravelbackend.integration;
 
 import oocl.ltravelbackend.controller.OfficialCommentController;
 import oocl.ltravelbackend.model.entity.OfficialComment;
+import oocl.ltravelbackend.model.entity.TravelPlan;
 import oocl.ltravelbackend.repository.OfficialCommentRepository;
+import oocl.ltravelbackend.repository.TravelPlanRepository;
+import oocl.ltravelbackend.repository.dao.TravelPlanJpaRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,12 +24,25 @@ class OfficialCommentControllerTest {
     private OfficialCommentController officialCommentController;
     @Autowired
     private OfficialCommentRepository officialCommentRepository;
+    @Autowired
+    private TravelPlanJpaRepository travelPlanRepository;
 
+    private Long testTravelPlanId;
 
     @BeforeEach
     void setUp() {
         officialCommentRepository.deleteAll();
+        travelPlanRepository.deleteAll();
 
+        // Create a test travel plan that the official comment can reference
+        TravelPlan testTravelPlan = TravelPlan.builder()
+                .title("Test Travel Plan")
+                .description("Test Description")
+                .cityName("Test City")
+                .isPopular(false)
+                .isLocalTravel(true)
+                .build();
+        testTravelPlanId = travelPlanRepository.save(testTravelPlan).getId();
     }
 
     @Test
@@ -36,10 +52,10 @@ class OfficialCommentControllerTest {
                 .overallComment("demo")
                 .rating(5.0)
                 .promoteReason("demo")
-                .travelPlanId(1L)
+                .travelPlanId(testTravelPlanId)
                 .build();
         long id = officialCommentRepository.save(officialComment).getId();
-        mockMvc.perform(org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get("/official-comment/1")
+        mockMvc.perform(org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get("/official-comment/" + testTravelPlanId)
                 )
                 .andExpect(org.springframework.test.web.servlet.result.MockMvcResultMatchers.status().isOk())
                 .andExpect(org.springframework.test.web.servlet.result.MockMvcResultMatchers.content().json("""
@@ -49,9 +65,9 @@ class OfficialCommentControllerTest {
                             "overallComment": "demo",
                             "rating": 5.0,
                             "promoteReason": "demo",
-                            "travelPlanId": 1
+                            "travelPlanId": %d
                         }
-                        """.formatted(id)));
+                        """.formatted(id, testTravelPlanId)));
     }
 
     @Test

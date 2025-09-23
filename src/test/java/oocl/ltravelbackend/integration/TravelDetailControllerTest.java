@@ -1,6 +1,7 @@
 package oocl.ltravelbackend.integration;
 
 import oocl.ltravelbackend.model.entity.TravelComponent;
+import oocl.ltravelbackend.repository.CommentRepository;
 import oocl.ltravelbackend.repository.TravelComponentRepository;
 import oocl.ltravelbackend.repository.dao.TravelDayJpaRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -27,9 +28,12 @@ class TravelDetailControllerTest {
     private TravelComponentRepository travelComponentRepository;
     @Autowired
     private TravelDayJpaRepository travelDayJpaRepository;
+    @Autowired
+    private CommentRepository commentRepository;
 
     @BeforeEach
     void setUp() {
+        commentRepository.deleteAll();
         travelDayJpaRepository.deleteAll();
         travelComponentRepository.deleteAll();
     }
