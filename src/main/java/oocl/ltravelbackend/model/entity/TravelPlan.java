@@ -30,4 +30,7 @@ public class TravelPlan {
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "travel_plan_id")
     private List<PlanImage> images;
+
+    @ManyToMany(mappedBy = "savedTravelPlans")
+    private List<User> savedByUsers;
 }

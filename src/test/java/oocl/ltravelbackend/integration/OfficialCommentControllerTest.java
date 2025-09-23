@@ -4,7 +4,6 @@ import oocl.ltravelbackend.controller.OfficialCommentController;
 import oocl.ltravelbackend.model.entity.OfficialComment;
 import oocl.ltravelbackend.model.entity.TravelPlan;
 import oocl.ltravelbackend.repository.OfficialCommentRepository;
-import oocl.ltravelbackend.repository.TravelPlanRepository;
 import oocl.ltravelbackend.repository.dao.TravelPlanJpaRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
