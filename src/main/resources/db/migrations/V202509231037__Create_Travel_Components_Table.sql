@@ -12,7 +12,5 @@ create table travel_components
     rating               float        not null,
     suggestion_play_time int          not null,
     way_of_commute       varchar(255) null,
-    travel_component_id  bigint       null,
-    constraint foreign key (travel_component_id) references travel_days (id)
+    travel_component_id  bigint       null
 );
-

@@ -8,8 +8,5 @@ create table travel_days
     travel_component_id bigint null,
     travel_plan_id      bigint null,
     constraint
-        foreign key (travel_plan_id) references travel_plan (id),
-    constraint
-        foreign key (travel_component_id) references travel_components (id)
+        foreign key (travel_plan_id) references travel_plan (id)
 );
-
