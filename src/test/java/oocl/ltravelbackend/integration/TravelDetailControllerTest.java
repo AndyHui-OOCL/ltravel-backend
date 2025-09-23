@@ -2,6 +2,7 @@ package oocl.ltravelbackend.integration;
 
 import oocl.ltravelbackend.model.entity.TravelComponent;
 import oocl.ltravelbackend.repository.TravelComponentRepository;
+import oocl.ltravelbackend.repository.dao.TravelDayJpaRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,9 +23,12 @@ class TravelDetailControllerTest {
 
     @Autowired
     private TravelComponentRepository travelComponentRepository;
+    @Autowired
+    private TravelDayJpaRepository travelDayJpaRepository;
 
     @BeforeEach
     void setUp() {
+        travelDayJpaRepository.deleteAll();
         travelComponentRepository.deleteAll();
     }
 
