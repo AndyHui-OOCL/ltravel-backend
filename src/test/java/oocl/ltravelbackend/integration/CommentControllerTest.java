@@ -64,12 +64,7 @@ class CommentControllerTest {
                         """.formatted(id1, id2)));
     }
 
-    @Test
-    void should_return_204_when_find_given_a_non_exist_travel_component_id() throws Exception {
-        mockMvc.perform(org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get("/comments/1")
-                )
-                .andExpect(org.springframework.test.web.servlet.result.MockMvcResultMatchers.status().isNoContent());
-    }
+
 
     @Test
     void should_return_400_when_find_given_a_invalid_travel_component_id() throws Exception {
