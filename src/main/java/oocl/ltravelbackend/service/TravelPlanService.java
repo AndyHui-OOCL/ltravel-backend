@@ -1,5 +1,4 @@
 package oocl.ltravelbackend.service;
-
 import java.util.Comparator;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -12,6 +11,7 @@ import oocl.ltravelbackend.model.dto.TravelLocationEventDTO;
 import oocl.ltravelbackend.model.dto.TravelPlanDetailDTO;
 import oocl.ltravelbackend.model.dto.TravelPlanOverviewDto;
 import oocl.ltravelbackend.model.entity.ComponentImage;
+import oocl.ltravelbackend.model.entity.PlanImage;
 import oocl.ltravelbackend.model.entity.TravelDay;
 import oocl.ltravelbackend.model.entity.TravelPlan;
 import oocl.ltravelbackend.repository.TravelPlanRepository;
@@ -62,6 +62,10 @@ public class TravelPlanService {
                 .max()
                 .orElse(0);
 
+        List<String> planImages = travelPlan.getImages().stream()
+          .map(PlanImage::getUrl)
+          .collect(Collectors.toList());
+
         List<TravelDay> travelDays = travelPlan.getTravelDays();
         Map<Integer, List<String>> route = travelDays.stream()
                 .sorted(Comparator.comparing(TravelDay::getComponentOrder))
@@ -90,6 +94,7 @@ public class TravelPlanService {
                 .isPopular(travelPlan.isPopular())
                 .isLocalTravel(travelPlan.isLocalTravel())
                 .totalTravelDay(highestDay)
+                .planImages(planImages)
                 .totalTravelComponent(travelPlan.getTravelDays().size())
                 .route(route)
                 .travelLocationEvents(travelLocationEvents)
