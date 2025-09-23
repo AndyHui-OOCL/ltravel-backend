@@ -88,7 +88,7 @@ public class TravelDetailService {
                         .wayOfCommute(day.getTravelComponent().getWayOfCommute())
                         .currentOccupation(day.getTravelComponent().getCurrentOccupation())
                         .futureOccupation(day.getTravelComponent().getFutureOccupation())
-                        .location(day.getTravelComponent().getLocation())
+                        .location(day.getTravelComponent().getIsLocation())
                         .build())
                 .collect(Collectors.toList());
 
