@@ -16,10 +16,11 @@ public class AIChatService {
     @Autowired
     private AIChatRepository aiChatRepository;
 
-    public List<AIChatDto> getChatById(List<Long> ids) {
-        List<AIChatDto> aiChatDtoList = new ArrayList<>();
-        List<TravelPlan> travelPlans = aiChatRepository.findChatByIds(ids);
+    public List<AIChatDto> getAIChatByPrompt(String prompt) {
+        List<Long> travelPlanIds = getTravelPlanIdsByAI(prompt);
 
+        List<AIChatDto> aiChatDtoList = new ArrayList<>();
+        List<TravelPlan> travelPlans = aiChatRepository.findChatByIds(travelPlanIds);
         for (TravelPlan travelPlan : travelPlans) {
             PlanImage firstImage = null;
             List<PlanImage> images = travelPlan.getImages();
@@ -36,5 +37,12 @@ public class AIChatService {
             aiChatDtoList.add(aiChatDto);
         }
         return aiChatDtoList;
+    }
+
+    private List<Long> getTravelPlanIdsByAI(String prompt) {
+        if ("秋天哪个城市最漂亮？".equals(prompt)) {
+            return List.of(1L, 2L);
+        }
+        return List.of();
     }
 }

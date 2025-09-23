@@ -16,11 +16,7 @@ public class OfficialCommentController {
 
     @GetMapping("/official-comment/{travelPlanId}")
     public ResponseEntity<OfficialComment> getOfficialComment(@PathVariable Long travelPlanId) {
-        if (travelPlanId == null || travelPlanId <= 0) {
-            throw new InvalidTravelPlanIdInputException("Travel Plan ID is invalid.");
-        }
-        return officialCommentService.getOfficialCommentByTravelPlanId(travelPlanId)
-                .map(officialComment -> ResponseEntity.ok(officialComment))
-                .orElse(ResponseEntity.noContent().build());
+
+        return ResponseEntity.ok(officialCommentService.getOfficialCommentByTravelPlanId(travelPlanId));
     }
 }
