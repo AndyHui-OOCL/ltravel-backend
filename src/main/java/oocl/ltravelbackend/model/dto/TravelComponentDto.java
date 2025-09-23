@@ -23,6 +23,6 @@ public class TravelComponentDto {
     private String wayOfCommute;
     private String currentOccupation;
     private String futureOccupation;
-    private Boolean location;
+    private Boolean isLocation;
     private List<ComponentImage> images;
 }
