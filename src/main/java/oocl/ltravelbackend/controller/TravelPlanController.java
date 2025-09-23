@@ -21,18 +21,12 @@ public class TravelPlanController {
     @Autowired
     TravelPlanService travelPlanService;
 
-    @GetMapping("/details/{id}")
-    public TravelComponent getTravelPlanDetails(@PathVariable Long id) {
-        return null;
-    }
-
     @GetMapping()
     public ResponseEntity<List<TravelPlanOverviewDto>> getTravelPlanOverview(
             @RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "9") int size) {
         return ResponseEntity.status(HttpStatus.OK)
                 .body(travelPlanService.getPaginatedBasicTravelPlans(page, size));
     }
-
 
   @GetMapping("/detail/{id}")
   public ResponseEntity<TravelPlanDetailDTO> getTravelPlanDetail(@PathVariable Long id) {

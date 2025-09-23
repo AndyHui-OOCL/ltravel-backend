@@ -26,7 +26,7 @@ public class TravelComponent {
   private String wayOfCommute;
   private String currentOccupation;
   private String futureOccupation;
-  private boolean location;
+  private Boolean location;
   @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
   @JoinColumn(name = "travel_component_id")
   private List<ComponentImage> images;

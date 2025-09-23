@@ -17,12 +17,10 @@ public class AIChatService {
     private AIChatRepository aiChatRepository;
 
     public List<AIChatDto> getAIChatByPrompt(String prompt) {
-
         List<Long> travelPlanIds = getTravelPlanIdsByAI(prompt);
 
         List<AIChatDto> aiChatDtoList = new ArrayList<>();
         List<TravelPlan> travelPlans = aiChatRepository.findChatByIds(travelPlanIds);
-
         for (TravelPlan travelPlan : travelPlans) {
             PlanImage firstImage = null;
             List<PlanImage> images = travelPlan.getImages();

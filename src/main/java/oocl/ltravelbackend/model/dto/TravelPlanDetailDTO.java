@@ -19,5 +19,5 @@ public class TravelPlanDetailDTO {
   private boolean isLocalTravel;
   private boolean isPopular;
   private Map<Integer, List<String>> route;
-  private List<String> locationImages;
+  private List<TravelLocationEventDTO> travelLocationEvents;
 }
