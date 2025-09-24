@@ -21,6 +21,7 @@ public class TravelPlan {
     private String title;
     private String cityName;
     private String description;
+    private String tag;
     private boolean isLocalTravel;
     private boolean isPopular;
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
@@ -30,7 +31,4 @@ public class TravelPlan {
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "travel_plan_id")
     private List<PlanImage> images;
-
-    @ManyToMany(mappedBy = "savedTravelPlans")
-    private List<User> savedByUsers;
 }
