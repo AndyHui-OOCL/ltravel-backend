@@ -17,17 +17,23 @@ public class TravelPlanController {
     @Autowired
     TravelPlanService travelPlanService;
 
-    @GetMapping()
+    @GetMapping
     public ResponseEntity<List<TravelPlanOverviewDto>> getTravelPlanOverview(
+            @RequestParam(required = false, defaultValue = "") String city,
+            @RequestParam(required = false) Integer travelDays,
+            @RequestParam(required = false, defaultValue = "") String tag,
             @RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "9") int size) {
         return ResponseEntity.status(HttpStatus.OK)
-                .body(travelPlanService.getPaginatedBasicTravelPlans(page, size));
+                .body(travelPlanService.getFilteredPaginatedTravelPlans(city, travelDays, tag, page, size));
     }
-
     @GetMapping("/plan-num")
-    public ResponseEntity<Integer> getNumberOfTravelPlans() {
+    public ResponseEntity<Integer> getNumberOfTravelPlans(
+            @RequestParam(required = false, defaultValue = "") String city,
+            @RequestParam(required = false) Integer travelDays,
+            @RequestParam(required = false, defaultValue = "") String tag
+    ) {
         return ResponseEntity.status(HttpStatus.OK)
-                .body(travelPlanService.getNumOfTravelPlans());
+                .body(travelPlanService.getNumOfTravelPlans(city, travelDays, tag));
     }
 
 

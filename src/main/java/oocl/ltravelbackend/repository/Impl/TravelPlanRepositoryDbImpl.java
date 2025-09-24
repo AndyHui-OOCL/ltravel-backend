@@ -16,17 +16,12 @@ public class TravelPlanRepositoryDbImpl implements TravelPlanRepository {
     private TravelPlanJpaRepository travelPlanJpaRepository;
 
     @Override
-    public List<TravelPlan> findTravelPlansByPagination(Pageable pageParams) {
-        return travelPlanJpaRepository.findAll(pageParams).stream().toList();
-    }
-
-    @Override
-    public Integer findNumOfTravelPlan() {
-        return travelPlanJpaRepository.findAll().size();
-    }
-
-    @Override
     public TravelPlan getTravelPlanDetailById(Long id) {
         return travelPlanJpaRepository.findById(id).orElse(null);
+    }
+
+    @Override
+    public List<TravelPlan> getAllFilteredTravelPlans(String city, String tag) {
+        return travelPlanJpaRepository.findFilteredTravelPlans(city, tag, Pageable.unpaged()).getContent();
     }
 }

@@ -26,34 +26,63 @@ public class TravelPlanService {
     @Autowired
     private TravelPlanRepository travelPlanRepository;
 
-    public List<TravelPlanOverviewDto> getPaginatedBasicTravelPlans(int page, int size) {
+    public List<TravelPlanOverviewDto> getFilteredPaginatedTravelPlans(String city, Integer travelDays, String tag, int page, int size){
         if (page < 1 || size <= 0) {
             throw new InvalidTravelPlanPaginationInputException(
                     "Page number must be greater than 0 and page size must be greater than zero");
         }
-        List<TravelPlan> result = travelPlanRepository.findTravelPlansByPagination(
-                PageRequest.of(page - 1, size));
 
+        List<TravelPlan> allFilteredTravelPlans = travelPlanRepository.getAllFilteredTravelPlans(city, tag);
 
-        return result.stream().map(travelPlan -> {
-            int highestDay = travelPlan.getTravelDays().stream()
-                    .mapToInt(TravelDay::getDayNum)  // Assuming there's a getDay() method in TravelDay
-                    .max()
-                    .orElse(0);  // Default to 0 if no travel days exist
+        if(travelDays != null && travelDays > 0) {
+            allFilteredTravelPlans = allFilteredTravelPlans.stream()
+                    .filter(travelPlan -> travelPlan.getTravelDays().stream()
+                            .mapToInt(TravelDay::getDayNum)
+                            .max()
+                            .orElse(0) == travelDays)
+                    .toList();
+        }
 
-            return TravelPlanOverviewDto.builder()
-                    .id(travelPlan.getId())
-                    .cityName(travelPlan.getCityName())
-                    .description(travelPlan.getDescription())
-                    .totalTravelDay(highestDay)
-                    .totalTravelComponent(travelPlan.getTravelDays().size())
-                    .travePlanPlanImages(travelPlan.getImages())
-                    .build();
-        }).toList();
+        int startIndex = (page - 1) * size;
+        int endIndex = Math.min(startIndex + size, allFilteredTravelPlans.size());
+
+        if (startIndex >= allFilteredTravelPlans.size()) {
+            return List.of();
+        }
+
+        List<TravelPlan> paginatedTravelPlans = allFilteredTravelPlans.subList(startIndex, endIndex);
+
+        return paginatedTravelPlans.stream()
+                .map(travelPlan -> {
+                            int highestDay = travelPlan.getTravelDays().stream()
+                                    .mapToInt(TravelDay::getDayNum)
+                                    .max()
+                                    .orElse(0);
+
+                            return TravelPlanOverviewDto.builder()
+                                    .id(travelPlan.getId())
+                                    .cityName(travelPlan.getCityName())
+                                    .description(travelPlan.getDescription())
+                                    .totalTravelDay(highestDay)
+                                    .totalTravelComponent(travelPlan.getTravelDays().size())
+                                    .travePlanPlanImages(travelPlan.getImages())
+                                    .build();
+                        }
+                ).toList();
     }
 
-    public Integer getNumOfTravelPlans() {
-        return travelPlanRepository.findNumOfTravelPlan();
+    public Integer getNumOfTravelPlans(String city, Integer travelDays, String tag) {
+        List<TravelPlan> allFilteredTravelPlans = travelPlanRepository.getAllFilteredTravelPlans(city, tag);
+
+        if(travelDays != null && travelDays > 0) {
+            allFilteredTravelPlans = allFilteredTravelPlans.stream()
+                    .filter(travelPlan -> travelPlan.getTravelDays().stream()
+                            .mapToInt(TravelDay::getDayNum)
+                            .max()
+                            .orElse(0) == travelDays)
+                    .toList();
+        }
+        return allFilteredTravelPlans.size();
     }
 
     public TravelPlanDetailDTO getTravelPlanDetailById(Long id) {

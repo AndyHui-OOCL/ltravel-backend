@@ -1,6 +1,8 @@
 package oocl.ltravelbackend.controller;
 
 import lombok.RequiredArgsConstructor;
+import oocl.ltravelbackend.common.exception.InvalidTravelComponentIdInputException;
+import oocl.ltravelbackend.model.dto.CommentDTO;
 import oocl.ltravelbackend.model.entity.Comment;
 import oocl.ltravelbackend.service.CommentService;
 import org.springframework.http.ResponseEntity;
@@ -16,7 +18,7 @@ public class CommentController {
     private final CommentService commentService;
 
     @GetMapping("/comments/{travelComponentId}")
-    public ResponseEntity<List<Comment>> getComments(@PathVariable Long travelComponentId) {
+    public ResponseEntity<List<CommentDTO>> getComments(@PathVariable Long travelComponentId) {
 
         return ResponseEntity.ok(commentService.getCommentsByTravelComponentId(travelComponentId));
     }
