@@ -1,6 +1,5 @@
 package oocl.ltravelbackend.integration;
 
-import oocl.ltravelbackend.controller.OfficialCommentController;
 import oocl.ltravelbackend.model.entity.OfficialComment;
 import oocl.ltravelbackend.model.entity.TravelPlan;
 import oocl.ltravelbackend.repository.OfficialCommentRepository;
@@ -19,8 +18,6 @@ import org.springframework.test.web.servlet.MockMvc;
 class OfficialCommentControllerTest {
     @Autowired
     private MockMvc mockMvc;
-    @Autowired
-    private OfficialCommentController officialCommentController;
     @Autowired
     private OfficialCommentRepository officialCommentRepository;
     @Autowired

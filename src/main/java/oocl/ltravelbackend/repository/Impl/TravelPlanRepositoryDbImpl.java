@@ -21,6 +21,11 @@ public class TravelPlanRepositoryDbImpl implements TravelPlanRepository {
     }
 
     @Override
+    public Integer findNumOfTravelPlan() {
+        return travelPlanJpaRepository.findAll().size();
+    }
+
+    @Override
     public TravelPlan getTravelPlanDetailById(Long id) {
         return travelPlanJpaRepository.findById(id).orElse(null);
     }

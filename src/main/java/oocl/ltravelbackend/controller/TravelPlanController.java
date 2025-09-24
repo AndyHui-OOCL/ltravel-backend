@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import oocl.ltravelbackend.model.entity.TravelComponent;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -26,6 +25,12 @@ public class TravelPlanController {
             @RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "9") int size) {
         return ResponseEntity.status(HttpStatus.OK)
                 .body(travelPlanService.getPaginatedBasicTravelPlans(page, size));
+    }
+
+    @GetMapping("/plan-num")
+    public ResponseEntity<Integer> getNumberOfTravelPlans() {
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(travelPlanService.getNumOfTravelPlans());
     }
 
   @GetMapping("/detail/{id}")

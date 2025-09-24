@@ -8,5 +8,7 @@ import java.util.List;
 public interface TravelPlanRepository {
     List<TravelPlan> findTravelPlansByPagination(Pageable pageParams);
 
+    Integer findNumOfTravelPlan();
+
     TravelPlan getTravelPlanDetailById(Long id);
 }

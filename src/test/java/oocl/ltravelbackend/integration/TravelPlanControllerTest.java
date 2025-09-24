@@ -166,4 +166,27 @@ public class TravelPlanControllerTest {
                 .images(new ArrayList<>())
                 .build();
     }
+
+    @Test
+    void should_return_0_when_get_num_travel_plan_given_0_travel_plan() throws Exception {
+        // When & Then
+        mockMvc.perform(get("/travel-plans/plan-num"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$").value(0));
+    }
+
+    @Test
+    void should_return_2_when_get_num_travel_plan_given_2_travel_plan() throws Exception {
+        // Given
+        TravelPlan plan1 = createTestTravelPlan("Tokyo", "Explore modern Japan", 3, 3);
+        TravelPlan plan2 = createTestTravelPlan("Paris", "City of lights adventure", 5, 5);
+
+        travelPlanJpaRepository.save(plan1);
+        travelPlanJpaRepository.save(plan2);
+
+        // When & Then
+        mockMvc.perform(get("/travel-plans/plan-num"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$").value(2));
+    }
 }

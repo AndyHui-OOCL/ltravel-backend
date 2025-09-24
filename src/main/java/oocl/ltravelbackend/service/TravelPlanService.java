@@ -51,6 +51,10 @@ public class TravelPlanService {
         }).toList();
     }
 
+    public Integer getNumOfTravelPlans() {
+        return travelPlanRepository.findNumOfTravelPlan();
+    }
+
     public TravelPlanDetailDTO getTravelPlanDetailById(Long id) {
         TravelPlan travelPlan = travelPlanRepository.getTravelPlanDetailById(id);
         if (travelPlan == null) {
