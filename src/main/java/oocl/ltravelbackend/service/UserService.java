@@ -78,4 +78,9 @@ public class UserService {
     Pageable pageable = PageRequest.of(page, size);
     return new PageImpl<>(pagedData, pageable, totalElements);
   }
+
+  public boolean getLikeStatus(Long planId, Long userId) {
+    User user = userRepository.findUserById(userId);
+    return user.getSavedTravelPlans().stream().anyMatch(plan->plan.getId().equals(planId));
+  }
 }
