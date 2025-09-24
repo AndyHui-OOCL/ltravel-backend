@@ -4,9 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import oocl.ltravelbackend.model.entity.PlanImage;
-import oocl.ltravelbackend.model.entity.TravelComponent;
-import oocl.ltravelbackend.model.entity.TravelDay;
 
 import java.util.List;
 import java.util.Map;

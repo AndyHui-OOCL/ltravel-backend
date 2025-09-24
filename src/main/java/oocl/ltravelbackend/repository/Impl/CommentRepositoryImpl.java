@@ -1,7 +1,6 @@
 package oocl.ltravelbackend.repository.Impl;
 
 import lombok.RequiredArgsConstructor;
-import oocl.ltravelbackend.common.exception.InvalidTravelComponentIdInputException;
 import oocl.ltravelbackend.model.entity.Comment;
 import oocl.ltravelbackend.repository.CommentRepository;
 import oocl.ltravelbackend.repository.dao.CommentJPARepository;

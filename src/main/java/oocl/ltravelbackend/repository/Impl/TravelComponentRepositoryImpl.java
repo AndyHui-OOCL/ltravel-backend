@@ -1,14 +1,12 @@
 package oocl.ltravelbackend.repository.Impl;
 
-import java.util.List;
-
 import oocl.ltravelbackend.model.entity.TravelComponent;
-import oocl.ltravelbackend.model.entity.TravelDay;
 import oocl.ltravelbackend.repository.TravelComponentRepository;
 import oocl.ltravelbackend.repository.dao.TravelComponentJpaRepository;
-import oocl.ltravelbackend.repository.dao.TravelDayJpaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 @Repository
 public class TravelComponentRepositoryImpl implements TravelComponentRepository {

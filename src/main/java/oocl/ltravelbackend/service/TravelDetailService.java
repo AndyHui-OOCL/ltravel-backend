@@ -2,10 +2,7 @@ package oocl.ltravelbackend.service;
 
 import oocl.ltravelbackend.common.exception.InvalidTravelPlanIdInputException;
 import oocl.ltravelbackend.model.dto.TravelComponentDto;
-import oocl.ltravelbackend.model.dto.TravelLocationEventDTO;
-import oocl.ltravelbackend.model.dto.TravelPlanDetailDTO;
 import oocl.ltravelbackend.model.dto.TravelRouteListDto;
-import oocl.ltravelbackend.model.entity.ComponentImage;
 import oocl.ltravelbackend.model.entity.TravelComponent;
 import oocl.ltravelbackend.model.entity.TravelDay;
 import oocl.ltravelbackend.model.entity.TravelPlan;
@@ -33,7 +30,7 @@ public class TravelDetailService {
 
     public TravelPlan getTravelPlan(Long id) {
         TravelPlan travelPlan = travelPlanRepository.getTravelPlanDetailById(id);
-        if(travelPlan == null) {
+        if (travelPlan == null) {
             throw new RuntimeException("Travel plan not found with id: " + id);
         }
         return travelPlan;
@@ -41,7 +38,7 @@ public class TravelDetailService {
 
     public TravelComponent getTravelComponent(Long id) {
         TravelComponent travelComponent = travelComponentRepository.getTravelComponentDetailById(id);
-        if(travelComponent == null) {
+        if (travelComponent == null) {
             throw new RuntimeException("Travel component not found with id: " + id);
         }
         return travelComponent;

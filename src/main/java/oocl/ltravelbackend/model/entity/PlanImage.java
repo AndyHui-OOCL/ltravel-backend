@@ -1,6 +1,5 @@
 package oocl.ltravelbackend.model.entity;
 
-import jakarta.annotation.sql.DataSourceDefinition;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

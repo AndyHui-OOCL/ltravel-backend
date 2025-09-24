@@ -10,19 +10,19 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class UserService {
-  @Autowired
-  private TravelPlanRepository travelPlanRepository;
+    @Autowired
+    private TravelPlanRepository travelPlanRepository;
 
-  @Autowired
-  private UserRepository userRepository;
+    @Autowired
+    private UserRepository userRepository;
 
-  public String likeTravelPlan(Long planId, Long userId) {
-    TravelPlan travelPlan = travelPlanRepository.getTravelPlanDetailById(planId);
-    User user = userRepository.findUserById(userId);
-    if(travelPlan == null) {
-      throw new TravelPlanNotFoundException("Travel Plan not found");
+    public String likeTravelPlan(Long planId, Long userId) {
+        TravelPlan travelPlan = travelPlanRepository.getTravelPlanDetailById(planId);
+        User user = userRepository.findUserById(userId);
+        if (travelPlan == null) {
+            throw new TravelPlanNotFoundException("Travel Plan not found");
+        }
+        user.getSavedTravelPlans().add(travelPlan);
+        return "Travel Plan is saved successfully";
     }
-    user.getSavedTravelPlans().add(travelPlan);
-    return "Travel Plan is saved successfully";
-  }
 }

@@ -4,22 +4,18 @@ import oocl.ltravelbackend.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/users")
 public class UserController {
 
-  @Autowired
-  private UserService userService;
+    @Autowired
+    private UserService userService;
 
-  @PostMapping("/like/{planId}")
-  public ResponseEntity<String> likeTravelPlan(@PathVariable Long planId,@RequestParam Long userId) {
-    return ResponseEntity.status(HttpStatus.OK).body(userService.likeTravelPlan(planId,userId));
-  }
+    @PostMapping("/like/{planId}")
+    public ResponseEntity<String> likeTravelPlan(@PathVariable Long planId, @RequestParam Long userId) {
+        return ResponseEntity.status(HttpStatus.OK).body(userService.likeTravelPlan(planId, userId));
+    }
 
 }

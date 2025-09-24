@@ -1,6 +1,5 @@
 package oocl.ltravelbackend.controller;
 
-import oocl.ltravelbackend.model.dto.TravelPlanDetailDTO;
 import oocl.ltravelbackend.model.dto.TravelRouteListDto;
 import oocl.ltravelbackend.model.entity.TravelComponent;
 import oocl.ltravelbackend.model.entity.TravelDay;

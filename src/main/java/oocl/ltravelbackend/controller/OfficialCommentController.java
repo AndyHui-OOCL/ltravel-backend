@@ -1,7 +1,6 @@
 package oocl.ltravelbackend.controller;
 
 import lombok.RequiredArgsConstructor;
-import oocl.ltravelbackend.common.exception.InvalidTravelPlanIdInputException;
 import oocl.ltravelbackend.model.entity.OfficialComment;
 import oocl.ltravelbackend.service.OfficialCommentService;
 import org.springframework.http.ResponseEntity;

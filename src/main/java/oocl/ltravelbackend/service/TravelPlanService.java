@@ -1,9 +1,4 @@
 package oocl.ltravelbackend.service;
-import java.util.Comparator;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 import oocl.ltravelbackend.common.exception.InvalidTravelPlanIdInputException;
 import oocl.ltravelbackend.common.exception.InvalidTravelPlanPaginationInputException;
@@ -18,6 +13,12 @@ import oocl.ltravelbackend.repository.TravelPlanRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+
+import java.util.Comparator;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 public class TravelPlanService {
@@ -67,8 +68,8 @@ public class TravelPlanService {
                 .orElse(0);
 
         List<String> planImages = travelPlan.getImages().stream()
-          .map(PlanImage::getUrl)
-          .collect(Collectors.toList());
+                .map(PlanImage::getUrl)
+                .collect(Collectors.toList());
 
         List<TravelDay> travelDays = travelPlan.getTravelDays();
         Map<Integer, List<String>> route = travelDays.stream()
@@ -83,14 +84,14 @@ public class TravelPlanService {
                 ));
 
         List<TravelLocationEventDTO> travelLocationEvents = travelDays.stream().filter(day -> day.getTravelComponent().getIsLocation() == true)
-          .map(day -> TravelLocationEventDTO.builder()
-            .eventName(day.getTravelComponent().getName())
-            .description(day.getTravelComponent().getDescription())
-            .locationImages(day.getTravelComponent().getImages().stream()
-              .map(ComponentImage::getUrl)
-              .collect(Collectors.toList()))
-            .build())
-          .collect(Collectors.toList());
+                .map(day -> TravelLocationEventDTO.builder()
+                        .eventName(day.getTravelComponent().getName())
+                        .description(day.getTravelComponent().getDescription())
+                        .locationImages(day.getTravelComponent().getImages().stream()
+                                .map(ComponentImage::getUrl)
+                                .collect(Collectors.toList()))
+                        .build())
+                .collect(Collectors.toList());
 
         return TravelPlanDetailDTO.builder()
                 .title(travelPlan.getTitle())
