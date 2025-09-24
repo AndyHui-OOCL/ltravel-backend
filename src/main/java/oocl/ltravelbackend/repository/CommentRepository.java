@@ -11,4 +11,5 @@ public interface CommentRepository {
 
     List<Comment> findByTravelComponentId(Long travelComponentId);
 
+    List<Comment> findByTravelComponentIdLimit(Long travelComponentId, int limit);
 }

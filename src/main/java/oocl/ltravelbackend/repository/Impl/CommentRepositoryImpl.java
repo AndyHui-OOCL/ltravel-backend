@@ -29,5 +29,12 @@ public class CommentRepositoryImpl implements CommentRepository {
         return commentJPARepository.findByTravelComponentId(travelComponentId);
     }
 
+    public List<Comment> findByTravelComponentIdLimit(Long travelComponentId, int limit) {
+        if (travelComponentId == null || travelComponentId <= 0) {
+            throw new InvalidTravelComponentIdInputException("Travel Component ID is invalid.");
+        }
+        return commentJPARepository.findByTravelComponentIdLimit(travelComponentId, limit);
+    }
+
 
 }
