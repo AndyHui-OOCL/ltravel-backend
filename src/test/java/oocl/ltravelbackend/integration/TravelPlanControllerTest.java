@@ -56,12 +56,12 @@ public class TravelPlanControllerTest {
                 .andExpect(jsonPath("$.length()").value(2))
                 .andExpect(jsonPath("$[0].id").value(id1))
                 .andExpect(jsonPath("$[0].cityName").value("Tokyo"))
-                .andExpect(jsonPath("$[0].description").value("Explore modern Japan"))
+                .andExpect(jsonPath("$[0].title").value("Explore modern Japan"))
                 .andExpect(jsonPath("$[0].totalTravelDay").value(3))
                 .andExpect(jsonPath("$[0].totalTravelComponent").value(3))
                 .andExpect(jsonPath("$[1].id").value(id2))
                 .andExpect(jsonPath("$[1].cityName").value("Paris"))
-                .andExpect(jsonPath("$[1].description").value("City of lights adventure"))
+                .andExpect(jsonPath("$[1].title").value("City of lights adventure"))
                 .andExpect(jsonPath("$[1].totalTravelDay").value(5))
                 .andExpect(jsonPath("$[1].totalTravelComponent").value(5));
     }
@@ -70,7 +70,7 @@ public class TravelPlanControllerTest {
     void should_return_paginated_travel_plans_when_get_overview_given_custom_pagination_parameters() throws Exception {
         // Given
         for (int i = 1; i <= 15; i++) {
-            TravelPlan plan = createTestTravelPlan("City" + i, "Description" + i, i, 1);
+            TravelPlan plan = createTestTravelPlan("City" + i, "Title" + i, i, 1);
             travelPlanJpaRepository.save(plan);
         }
 
@@ -116,7 +116,7 @@ public class TravelPlanControllerTest {
     void should_return_correct_total_travel_day_when_get_overview_given_travel_plan_with_multiple_days() throws Exception {
         TravelPlan plan = TravelPlan.builder()
                 .cityName("Rome")
-                .description("Ancient city exploration")
+                .title("Ancient city exploration")
                 .travelDays(List.of(
                         TravelDay.builder().dayNum(1).build(),
                         TravelDay.builder().dayNum(2).build(),
@@ -143,7 +143,7 @@ public class TravelPlanControllerTest {
 
         TravelPlan plan = TravelPlan.builder()
                 .cityName("Barcelona")
-                .description("Mediterranean adventure")
+                .title("Mediterranean adventure")
                 .travelDays(List.of(TravelDay.builder().dayNum(1).build()))
                 .images(List.of(image1, image2))
                 .build();
@@ -158,7 +158,7 @@ public class TravelPlanControllerTest {
                 .andExpect(jsonPath("$[0].travePlanPlanImages.length()").value(2));
     }
 
-    private TravelPlan createTestTravelPlan(String cityName, String description, int maxDayNum, int totalDays) {
+    private TravelPlan createTestTravelPlan(String cityName, String title, int maxDayNum, int totalDays) {
         List<TravelDay> travelDays = new ArrayList<>();
         for (int i = 1; i <= totalDays; i++) {
             travelDays.add(TravelDay.builder().dayNum(Math.min(i + 1, maxDayNum)).build());
@@ -166,7 +166,7 @@ public class TravelPlanControllerTest {
 
         return TravelPlan.builder()
                 .cityName(cityName)
-                .description(description)
+                .title(title)
                 .travelDays(travelDays)
                 .images(new ArrayList<>())
                 .build();
@@ -412,7 +412,7 @@ public class TravelPlanControllerTest {
                 .andExpect(jsonPath("$[2].cityName").value("Tokyo"));
     }
 
-    private TravelPlan createTestTravelPlanWithTag(String cityName, String description, int maxDayNum, int totalDays, String tag) {
+    private TravelPlan createTestTravelPlanWithTag(String cityName, String title, int maxDayNum, int totalDays, String tag) {
         List<TravelDay> travelDays = new ArrayList<>();
         for (int i = 1; i <= totalDays; i++) {
             travelDays.add(TravelDay.builder().dayNum(Math.min(i + 1, maxDayNum)).build());
@@ -420,7 +420,7 @@ public class TravelPlanControllerTest {
 
         return TravelPlan.builder()
                 .cityName(cityName)
-                .description(description)
+                .title(title)
                 .travelDays(travelDays)
                 .images(new ArrayList<>())
                 .tag(tag)

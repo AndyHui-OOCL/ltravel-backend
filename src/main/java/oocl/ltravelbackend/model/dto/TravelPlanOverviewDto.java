@@ -11,7 +11,7 @@ import java.util.List;
 public class TravelPlanOverviewDto {
     private long id;
     private String cityName;
-    private String description;
+    private String title;
     private int totalTravelDay;
     private int totalTravelComponent;
     private List<PlanImage> travePlanPlanImages;

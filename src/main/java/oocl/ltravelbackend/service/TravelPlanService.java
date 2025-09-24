@@ -62,7 +62,7 @@ public class TravelPlanService {
                             return TravelPlanOverviewDto.builder()
                                     .id(travelPlan.getId())
                                     .cityName(travelPlan.getCityName())
-                                    .description(travelPlan.getDescription())
+                                    .title(travelPlan.getTitle())
                                     .totalTravelDay(highestDay)
                                     .totalTravelComponent(travelPlan.getTravelDays().size())
                                     .travePlanPlanImages(travelPlan.getImages())
