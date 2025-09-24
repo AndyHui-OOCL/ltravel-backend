@@ -3,6 +3,7 @@ package oocl.ltravelbackend.integration;
 import oocl.ltravelbackend.model.entity.PlanImage;
 import oocl.ltravelbackend.model.entity.TravelDay;
 import oocl.ltravelbackend.model.entity.TravelPlan;
+import oocl.ltravelbackend.repository.dao.OfficialCommentJPARepository;
 import oocl.ltravelbackend.repository.dao.TravelPlanJpaRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -30,8 +31,12 @@ public class TravelPlanControllerTest {
     @Autowired
     private TravelPlanJpaRepository travelPlanJpaRepository;
 
+    @Autowired
+    private OfficialCommentJPARepository officialCommentJPARepository;
+
     @BeforeEach
     void setUp() {
+        officialCommentJPARepository.deleteAll();
         travelPlanJpaRepository.deleteAll();
     }
 

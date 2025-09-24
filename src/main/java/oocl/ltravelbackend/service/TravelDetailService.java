@@ -45,8 +45,7 @@ public class TravelDetailService {
     }
 
     public List<TravelDay> getTravelDayList(Long travelPlanId) {
-        List<TravelDay> travelDayList = travelDayRepository.findAllByTravelPlanId(travelPlanId);
-        return travelDayList;
+        return travelDayRepository.findAllByTravelPlanId(travelPlanId);
     }
 
     public TravelRouteListDto getTravelDayDetailById(Long id) {
