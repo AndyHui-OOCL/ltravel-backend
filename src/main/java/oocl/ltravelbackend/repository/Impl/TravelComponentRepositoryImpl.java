@@ -36,4 +36,9 @@ public class TravelComponentRepositoryImpl implements TravelComponentRepository 
         return travelComponentJpaRepository.findAllById(travelComponentIds);
     }
 
+    @Override
+    public TravelComponent findById(Long id) {
+        return travelComponentJpaRepository.findById(id).orElse(null);
+    }
+
 }
