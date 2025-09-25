@@ -28,6 +28,8 @@ public class AIChatService {
     private final ChatClient chatClient;
     private final AIChatRepository aiChatRepository;
     private final TravelPlanRepository travelPlanRepository;
+    private static final String PROMPT_FILE_PATH = "src/main/resources/prompt/prompt.txt";
+    private static final String INTENTION_PROMPT_FILE_PATH = "src/main/resources/prompt/intentionPrompt.txt";
 
     @Autowired
     public AIChatService(OpenAiChatModel chatModel,
@@ -81,7 +83,7 @@ public class AIChatService {
     }
 
     private String handleUserInput(String userInput) {
-        return callAI(userInput);
+        return callAI(buildIntentionPrompt(userInput));
     }
 
     private List<Long> getTravelPlanIdsByAI(String userInput) {
@@ -111,7 +113,7 @@ public class AIChatService {
 
     private String buildPrompt(String userPrompt, List<TravelPlan> travelPlans) {
         try {
-            String promptTemplate = Files.readString(Paths.get("src/main/resources/prompt/prompt.txt"));
+            String promptTemplate = Files.readString(Paths.get(AIChatService.PROMPT_FILE_PATH));
 
             List<TravelPlanPromptDto> travelPlanDtos = travelPlans.stream()
                     .map(travelPlan -> TravelPlanPromptDto.builder()
@@ -128,6 +130,16 @@ public class AIChatService {
 
             promptTemplate = promptTemplate.replace("{{ $userInput }}", userPrompt);
             promptTemplate = promptTemplate.replace("{{ $travelPlans }}", travelPlansJson);
+            return promptTemplate;
+        } catch (Exception e) {
+            throw new PromptBuildException("Failed to build prompt");
+        }
+    }
+
+    private String buildIntentionPrompt(String userPrompt) {
+        try {
+            String promptTemplate = Files.readString(Paths.get(AIChatService.INTENTION_PROMPT_FILE_PATH));
+            promptTemplate = promptTemplate.replace("{{ $userInput }}", userPrompt);
             return promptTemplate;
         } catch (Exception e) {
             throw new PromptBuildException("Failed to build prompt");

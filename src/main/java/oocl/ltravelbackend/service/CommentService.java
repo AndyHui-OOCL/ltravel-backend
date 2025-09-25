@@ -4,7 +4,6 @@ import lombok.RequiredArgsConstructor;
 import oocl.ltravelbackend.common.exception.InvalidCommentPaginationInputException;
 import oocl.ltravelbackend.common.exception.InvalidTravelComponentIdInputException;
 import oocl.ltravelbackend.common.exception.InvalidTravelPlanIdInputException;
-import oocl.ltravelbackend.model.dto.CommentReqDTO;
 import oocl.ltravelbackend.model.dto.CommentRespDTO;
 import oocl.ltravelbackend.model.entity.Comment;
 import oocl.ltravelbackend.repository.CommentRepository;
@@ -24,7 +23,7 @@ public class CommentService {
             throw new InvalidTravelComponentIdInputException("Travel Component ID is invalid.");
         }
         List<Comment> comments = commentRepository.findByTravelComponentId(travelComponentId);
-        return comments==null || comments.isEmpty() ? new ArrayList<>() : comments.stream()
+        return comments == null || comments.isEmpty() ? new ArrayList<>() : comments.stream()
                 .map(comment -> CommentRespDTO.builder()
                         .id(comment.getId())
                         .travelComponentName(comment.getTravelComponent().getName())
@@ -34,6 +33,7 @@ public class CommentService {
                         .build())
                 .toList();
     }
+
     public Page<Comment> getPaginatedCommentsByTravelPlanId(Long travelPlanId, int page, int size) {
 
         if (travelPlanId == null || travelPlanId <= 0) {
