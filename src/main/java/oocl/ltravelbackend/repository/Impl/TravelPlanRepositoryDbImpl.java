@@ -24,4 +24,9 @@ public class TravelPlanRepositoryDbImpl implements TravelPlanRepository {
     public List<TravelPlan> getAllFilteredTravelPlans(String city, String tag) {
         return travelPlanJpaRepository.findFilteredTravelPlans(city, tag, Pageable.unpaged()).getContent();
     }
+
+    @Override
+    public List<TravelPlan> findAll() {
+        return travelPlanJpaRepository.findAll();
+    }
 }

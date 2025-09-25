@@ -12,5 +12,5 @@ public interface CommentJPARepository extends JpaRepository<Comment, Long> {
     List<Comment> findByTravelComponentId(Long travelComponentId);
 
     @Query(value = "SELECT * FROM comment WHERE travel_component_id = :travelComponentId ORDER BY id LIMIT :limit", nativeQuery = true)
-    List<Comment> findByTravelComponentIdLimit(@Param("travelComponentId") Long travelComponentId,@Param("limit") Integer limit);
+    List<Comment> findByTravelComponentIdLimit(@Param("travelComponentId") Long travelComponentId, @Param("limit") Integer limit);
 }

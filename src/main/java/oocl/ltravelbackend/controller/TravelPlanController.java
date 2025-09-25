@@ -26,6 +26,7 @@ public class TravelPlanController {
         return ResponseEntity.status(HttpStatus.OK)
                 .body(travelPlanService.getFilteredPaginatedTravelPlans(city, travelDays, tag, page, size));
     }
+
     @GetMapping("/plan-num")
     public ResponseEntity<Integer> getNumberOfTravelPlans(
             @RequestParam(required = false, defaultValue = "") String city,
@@ -35,7 +36,6 @@ public class TravelPlanController {
         return ResponseEntity.status(HttpStatus.OK)
                 .body(travelPlanService.getNumOfTravelPlans(city, travelDays, tag));
     }
-
 
     @GetMapping("/detail/{id}")
     public ResponseEntity<TravelPlanDetailDTO> getTravelPlanDetail(@PathVariable Long id) {

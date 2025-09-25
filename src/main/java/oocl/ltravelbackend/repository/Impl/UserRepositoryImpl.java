@@ -8,16 +8,16 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public class UserRepositoryImpl implements UserRepository {
-  @Autowired
-  private UserJpaRepository userJpaRepository;
+    @Autowired
+    private UserJpaRepository userJpaRepository;
 
-  @Override
-  public User findUserById(Long id) {
-    return userJpaRepository.findById(id).orElse(null);
-  }
+    @Override
+    public User findUserById(Long id) {
+        return userJpaRepository.findById(id).orElse(null);
+    }
 
-  @Override
-  public User save(User user) {
-    return userJpaRepository.save(user);
-  }
+    @Override
+    public User save(User user) {
+        return userJpaRepository.save(user);
+    }
 }

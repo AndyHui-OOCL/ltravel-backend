@@ -11,7 +11,6 @@ import oocl.ltravelbackend.model.entity.TravelDay;
 import oocl.ltravelbackend.model.entity.TravelPlan;
 import oocl.ltravelbackend.repository.TravelPlanRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.Comparator;
@@ -26,7 +25,7 @@ public class TravelPlanService {
     @Autowired
     private TravelPlanRepository travelPlanRepository;
 
-    public List<TravelPlanOverviewDto> getFilteredPaginatedTravelPlans(String city, Integer travelDays, String tag, int page, int size){
+    public List<TravelPlanOverviewDto> getFilteredPaginatedTravelPlans(String city, Integer travelDays, String tag, int page, int size) {
         if (page < 1 || size <= 0) {
             throw new InvalidTravelPlanPaginationInputException(
                     "Page number must be greater than 0 and page size must be greater than zero");
@@ -34,7 +33,7 @@ public class TravelPlanService {
 
         List<TravelPlan> allFilteredTravelPlans = travelPlanRepository.getAllFilteredTravelPlans(city, tag);
 
-        if(travelDays != null && travelDays > 0) {
+        if (travelDays != null && travelDays > 0) {
             allFilteredTravelPlans = allFilteredTravelPlans.stream()
                     .filter(travelPlan -> travelPlan.getTravelDays().stream()
                             .mapToInt(TravelDay::getDayNum)
@@ -74,7 +73,7 @@ public class TravelPlanService {
     public Integer getNumOfTravelPlans(String city, Integer travelDays, String tag) {
         List<TravelPlan> allFilteredTravelPlans = travelPlanRepository.getAllFilteredTravelPlans(city, tag);
 
-        if(travelDays != null && travelDays > 0) {
+        if (travelDays != null && travelDays > 0) {
             allFilteredTravelPlans = allFilteredTravelPlans.stream()
                     .filter(travelPlan -> travelPlan.getTravelDays().stream()
                             .mapToInt(TravelDay::getDayNum)
