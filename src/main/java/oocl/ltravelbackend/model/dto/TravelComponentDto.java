@@ -24,5 +24,6 @@ public class TravelComponentDto {
     private String currentOccupation;
     private String futureOccupation;
     private Boolean isLocation;
+    private String ticketUrl;
     private List<ComponentImage> images;
 }

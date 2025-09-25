@@ -31,4 +31,5 @@ public class TravelComponent {
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "travel_component_id")
     private List<ComponentImage> images;
+    private String ticketUrl;
 }
