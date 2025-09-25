@@ -15,7 +15,9 @@ import org.springframework.stereotype.Service;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class AIChatService {
@@ -65,8 +67,10 @@ public class AIChatService {
                     .user(prompt)
                     .call()
                     .content();
-            ObjectMapper objectMapper = new ObjectMapper();
-            return objectMapper.readValue(response, objectMapper.getTypeFactory().constructCollectionType(List.class, Long.class));
+            return Arrays.stream(response.replaceAll("[\\[\\]\\s]", "").split(","))
+                    .filter(s -> !s.isEmpty())
+                    .map(Long::parseLong)
+                    .collect(Collectors.toList());
         } catch (Exception e) {
             System.err.println("Error calling AI API: " + e.getMessage());
             return List.of();

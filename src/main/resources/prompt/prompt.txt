@@ -75,4 +75,4 @@ Instruction：你需要返回所有符合要求的旅行计划的id；Details：
   }
 ]
 
-- return: ids[34,35]
+- return: [34,35]
