@@ -83,9 +83,7 @@ public class AIChatService {
     }
 
     private String handleUserInput(String userInput) {
-        List<TravelPlan> travelPlans = travelPlanRepository.findAll();
-        String userInputJson = buildIntentionPrompt(userInput, travelPlans);
-        return callAI(userInputJson);
+        return callAI(buildIntentionPrompt(userInput));
     }
 
     private List<Long> getTravelPlanIdsByAI(String userInput) {
@@ -138,25 +136,10 @@ public class AIChatService {
         }
     }
 
-    private String buildIntentionPrompt(String userPrompt, List<TravelPlan> travelPlans) {
+    private String buildIntentionPrompt(String userPrompt) {
         try {
             String promptTemplate = Files.readString(Paths.get(AIChatService.INTENTION_PROMPT_FILE_PATH));
-
-            List<TravelPlanPromptDto> travelPlanDtos = travelPlans.stream()
-                    .map(travelPlan -> TravelPlanPromptDto.builder()
-                            .id(travelPlan.getId())
-                            .title(travelPlan.getTitle())
-                            .cityName(travelPlan.getCityName())
-                            .description(travelPlan.getDescription())
-                            .tag(travelPlan.getTag())
-                            .build())
-                    .toList();
-
-            ObjectMapper objectMapper = new ObjectMapper();
-            String travelPlansJson = objectMapper.writeValueAsString(travelPlanDtos);
-
             promptTemplate = promptTemplate.replace("{{ $userInput }}", userPrompt);
-            promptTemplate = promptTemplate.replace("{{ $travelPlans }}", travelPlansJson);
             return promptTemplate;
         } catch (Exception e) {
             throw new PromptBuildException("Failed to build prompt");
