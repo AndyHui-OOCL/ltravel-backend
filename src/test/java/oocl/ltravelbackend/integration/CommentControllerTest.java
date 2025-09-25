@@ -9,13 +9,12 @@ import oocl.ltravelbackend.repository.dao.TravelPlanJpaRepository;
 import oocl.ltravelbackend.repository.dao.UserJpaRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.MediaType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -78,7 +77,7 @@ class CommentControllerTest {
                 .suggestionPlayTime(120)
                 .build();
         testComponentAfter = travelComponentRepository.save(testComponent);
-        testComponentId= testComponentAfter.getId();
+        testComponentId = testComponentAfter.getId();
 
         TravelPlan testPlan = TravelPlan.builder()
                 .cityName("Test Plan")
@@ -98,6 +97,7 @@ class CommentControllerTest {
         travelDayJpaRepository.save(travelDay);
 
     }
+
     @Test
     void should_return_list_of_comments_when_find_given_a_travel_component_id() throws Exception {
         long id1 = commentRepository.create(Comment.builder()
@@ -142,7 +142,7 @@ class CommentControllerTest {
                 .isLike(false)
                 .build()).getId();
 
-        mockMvc.perform(get("/comments" )
+        mockMvc.perform(get("/comments")
                         .param("travelPlanId", String.valueOf(testPlan01.getId()))
                         .param("page", "1")
                         .param("size", "5")
@@ -161,7 +161,6 @@ class CommentControllerTest {
                 .andExpect(jsonPath("$.content[1].isLike").value(false))
                 .andExpect(jsonPath("$.total").value(2));
     }
-
 
 
     @Test
