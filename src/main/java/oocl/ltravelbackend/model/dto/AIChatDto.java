@@ -10,4 +10,5 @@ public class AIChatDto {
     private String cityName;
     private String description;
     private String imageUrl;
+    private String failMessage;
 }

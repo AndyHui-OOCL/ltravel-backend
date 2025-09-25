@@ -1,5 +1,6 @@
 package oocl.ltravelbackend.service;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import oocl.ltravelbackend.common.exception.DeepSeekApiException;
 import oocl.ltravelbackend.common.exception.PromptBuildException;
@@ -38,6 +39,25 @@ public class AIChatService {
     }
 
     public List<AIChatDto> getAIChatByPrompt(String userInput) {
+
+        String rawAIResponse = handleUserInput(userInput);
+        try {
+            ObjectMapper objectMapper = new ObjectMapper();
+            JsonNode rootNode = objectMapper.readTree(rawAIResponse);
+            boolean isValid = rootNode.path("isValid").asBoolean();
+            String reason = rootNode.path("reason").asText();
+            if (!isValid) {
+                AIChatDto aiChatDto = AIChatDto.builder()
+                        .failMessage(reason)
+                        .build();
+                List<AIChatDto> result = new ArrayList<>();
+                result.add(aiChatDto);
+                return result;
+            }
+        } catch (Exception e) {
+            return new ArrayList<>();
+        }
+
         List<Long> travelPlanIds = getTravelPlanIdsByAI(userInput);
 
         List<AIChatDto> aiChatDtoList = new ArrayList<>();
@@ -60,15 +80,16 @@ public class AIChatService {
         return aiChatDtoList;
     }
 
+    private String handleUserInput(String userInput) {
+        return callAI(userInput);
+    }
+
     private List<Long> getTravelPlanIdsByAI(String userInput) {
         List<TravelPlan> travelPlans = travelPlanRepository.findAll();
         String prompt = buildPrompt(userInput, travelPlans);
 
         try {
-            String response = chatClient.prompt()
-                    .user(prompt)
-                    .call()
-                    .content();
+            String response = callAI(prompt);
             if (response == null || response.isEmpty()) {
                 response = "[]";
             }
@@ -79,6 +100,13 @@ public class AIChatService {
         } catch (DeepSeekApiException e) {
             return new ArrayList<>();
         }
+    }
+
+    private String callAI(String prompt) {
+        return chatClient.prompt()
+                .user(prompt)
+                .call()
+                .content();
     }
 
     private String buildPrompt(String userPrompt, List<TravelPlan> travelPlans) {
