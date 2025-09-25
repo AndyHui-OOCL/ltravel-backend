@@ -9,4 +9,6 @@ public interface TravelPlanRepository {
     TravelPlan getTravelPlanDetailById(Long id);
 
     List<TravelPlan> getAllFilteredTravelPlans(String city, String tag);
+
+    List<TravelPlan> findAll();
 }
