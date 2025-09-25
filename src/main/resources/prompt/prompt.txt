@@ -9,6 +9,10 @@ Goal：根据`user-input`找到`travelPlans`中匹配度最高的旅行计划；
 User：Sam，是一位35-45岁、财务独立的旅行者，追求宁静高质量旅行，偏好非旺季探索本地化景点以避免人群，并深度体验当地文化；
 Instruction：你需要返回所有符合要求的旅行计划的id；Details：`database`中可能没有完全对应`user-input`的记录但是你应该返回匹配度最高的所有符合要求的旅行计划的id,返回的格式为`[?,...]`(如[1,11]),格式需要严格遵循；Examples：`example`里面有例子。
 
+## history
+这是以前的对话历史，可能会帮助你更好地理解用户的需求
+{{ $history }}
+
 ## travelPlans
 {{ $travelPlans }}
 

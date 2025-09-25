@@ -1,7 +1,8 @@
 package oocl.ltravelbackend.controller;
 
 
-import oocl.ltravelbackend.model.dto.AIChatDto;
+import oocl.ltravelbackend.model.dto.AIChatReqDto;
+import oocl.ltravelbackend.model.dto.AIChatRespDto;
 import oocl.ltravelbackend.service.AIChatService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -11,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/ai-chat")
@@ -21,7 +21,7 @@ public class AIChatController {
     private AIChatService aiChatService;
 
     @PostMapping
-    public ResponseEntity<List<AIChatDto>> generateAIChatPlans(@RequestBody Map<String, String> request) {
-        return ResponseEntity.ok().body(aiChatService.getAIChatByPrompt(request.get("prompt")));
+    public ResponseEntity<List<AIChatRespDto>> generateAIChatPlans(@RequestBody AIChatReqDto chatReqDto) {
+        return ResponseEntity.ok().body(aiChatService.getAIChatByPrompt(chatReqDto));
     }
 }
