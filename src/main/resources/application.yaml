@@ -1,17 +1,24 @@
-spring:
-  profiles:
-    active: ${SPRING_PROFILES_ACTIVE:dev}
-  datasource:
-    url: ${MYSQL_PUBLIC_URL}
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    username: ${MYSQLUSER:root}
-    password: ${MYSQL_ROOT_PASSWORD}
-  jpa:
-    show-sql: true
-    hibernate:
-      ddl-auto: validate
-  flyway:
-    enabled: true
-    locations: classpath:db/migration
-    baseline-on-migrate: true
-    validate-on-migrate: true
+  spring:
+    profiles:
+      active: ${SPRING_PROFILES_ACTIVE:local}
+    datasource:
+      url: ${MYSQL_PUBLIC_URL}
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      username: ${MYSQLUSER:root}
+      password: ${MYSQL_ROOT_PASSWORD}
+    jpa:
+      show-sql: true
+      hibernate:
+        ddl-auto: validate
+    flyway:
+      enabled: true
+      locations: classpath:db/migration
+      baseline-on-migrate: true
+      validate-on-migrate: true
+    ai:
+      openai:
+        base-url: https://api.deepseek.com
+        api-key: ${AI_API_KEY}
+        chat:
+          options:
+            model: deepseek-chat

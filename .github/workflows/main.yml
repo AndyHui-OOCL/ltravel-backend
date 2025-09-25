@@ -51,7 +51,7 @@ jobs:
           reporter: java-junit
 
   integration-test:
-    needs: [unit-test]
+    needs: [ unit-test ]
     runs-on: ubuntu-latest
 
     steps:
@@ -89,7 +89,7 @@ jobs:
           reporter: java-junit
 
   deploy-dev:
-    needs: [unit-test, integration-test]
+    needs: [ unit-test, integration-test ]
     runs-on: ubuntu-latest
     environment: dev
     if: github.ref == 'refs/heads/main'

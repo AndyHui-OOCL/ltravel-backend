@@ -1,0 +1,1 @@
+ALTER TABLE travel_plan ADD COLUMN tag varchar(255) NULL;

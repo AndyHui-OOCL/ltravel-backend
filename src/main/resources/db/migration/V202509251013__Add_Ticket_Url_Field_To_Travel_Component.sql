@@ -1,0 +1,1 @@
+ALTER TABLE travel_components ADD COLUMN ticket_url varchar(255) NULL;
