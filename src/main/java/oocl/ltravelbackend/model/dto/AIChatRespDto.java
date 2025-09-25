@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Data
 @Builder
-public class AIChatDto {
+public class AIChatRespDto {
     private Long travelId;
     private String cityName;
     private String description;
