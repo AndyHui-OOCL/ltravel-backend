@@ -111,7 +111,7 @@ public class TravelPlanService {
                         )
                 ));
 
-        List<TravelLocationEventDTO> travelLocationEvents = travelDays.stream().filter(day -> day.getTravelComponent().getIsLocation() == true)
+        List<TravelLocationEventDTO> travelLocationEvents = travelDays.stream().filter(day -> day.getTravelComponent().getIsLocation() == false)
                 .map(day -> TravelLocationEventDTO.builder()
                         .eventName(day.getTravelComponent().getName())
                         .description(day.getTravelComponent().getDescription())
