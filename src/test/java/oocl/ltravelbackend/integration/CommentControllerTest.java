@@ -1,20 +1,22 @@
 package oocl.ltravelbackend.integration;
 
-import oocl.ltravelbackend.model.entity.Comment;
-import oocl.ltravelbackend.model.entity.TravelComponent;
-import oocl.ltravelbackend.model.entity.User;
+import oocl.ltravelbackend.model.entity.*;
 import oocl.ltravelbackend.repository.CommentRepository;
 import oocl.ltravelbackend.repository.TravelComponentRepository;
+import oocl.ltravelbackend.repository.dao.OfficialCommentJPARepository;
 import oocl.ltravelbackend.repository.dao.TravelDayJpaRepository;
+import oocl.ltravelbackend.repository.dao.TravelPlanJpaRepository;
 import oocl.ltravelbackend.repository.dao.UserJpaRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.MediaType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
-
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -38,15 +40,22 @@ class CommentControllerTest {
     private User testUser20;
     private Long testComponentId;
     private TravelComponent testComponentAfter;
+    private TravelPlan testPlan01;
     @Autowired
     private TravelDayJpaRepository travelDayJpaRepository;
+    @Autowired
+    private TravelPlanJpaRepository travelPlanJpaRepository;
+    @Autowired
+    private OfficialCommentJPARepository officialCommentJPARepository;
 
     @BeforeEach
     void setUp() {
         commentRepository.deleteAll();
-        userJpaRepository.deleteAll();
+        officialCommentJPARepository.deleteAll();
         travelDayJpaRepository.deleteAll();
         travelComponentRepository.deleteAll();
+        travelPlanJpaRepository.deleteAll();
+        userJpaRepository.deleteAll();
 
         // Create test user
         User testUser1 = new User();
@@ -69,9 +78,26 @@ class CommentControllerTest {
                 .suggestionPlayTime(120)
                 .build();
         testComponentAfter = travelComponentRepository.save(testComponent);
-        testComponentId = testComponentAfter.getId();
-    }
+        testComponentId= testComponentAfter.getId();
 
+        TravelPlan testPlan = TravelPlan.builder()
+                .cityName("Test Plan")
+                .isLocalTravel(true)
+                .title("Test Plan Title")
+                .tag("Test Tag")
+                .isPopular(true)
+                .description("Test Plan Description")
+                .build();
+        testPlan01 = travelPlanJpaRepository.save(testPlan);
+        TravelDay travelDay = TravelDay.builder()
+                .dayNum(1)
+                .componentOrder(1)
+                .travelPlanId(testPlan01.getId())
+                .travelComponent(testComponentAfter)
+                .build();
+        travelDayJpaRepository.save(travelDay);
+
+    }
     @Test
     void should_return_list_of_comments_when_find_given_a_travel_component_id() throws Exception {
         long id1 = commentRepository.create(Comment.builder()
@@ -101,10 +127,49 @@ class CommentControllerTest {
                 .andExpect(jsonPath("$[1].isLike").value(false));
     }
 
+    @Test
+    void should_return_list_of_comments_when_find_given_a_travel_plan_id() throws Exception {
+        long id1 = commentRepository.create(Comment.builder()
+                .description("demo")
+                .travelComponent(travelComponentRepository.findById(testComponentId))
+                .user(userJpaRepository.findById(testUser1Id).get())
+                .isLike(true)
+                .build()).getId();
+        long id2 = commentRepository.create(Comment.builder()
+                .description("demo2")
+                .travelComponent(travelComponentRepository.findById(testComponentId))
+                .user(userJpaRepository.findById(testUser2Id).get())
+                .isLike(false)
+                .build()).getId();
+
+        mockMvc.perform(get("/comments" )
+                        .param("travelPlanId", String.valueOf(testPlan01.getId()))
+                        .param("page", "1")
+                        .param("size", "5")
+                )
+                .andExpect(status().isOk())
+
+                .andExpect(jsonPath("$.content[0].id").value(id1))
+                .andExpect(jsonPath("$.content[0].description").value("demo"))
+                .andExpect(jsonPath("$.content[0].travelComponentName").value(testComponentAfter.getName()))
+                .andExpect(jsonPath("$.content[0].username").value(testUser10.getUserName()))
+                .andExpect(jsonPath("$.content[0].isLike").value(true))
+                .andExpect(jsonPath("$.content[1].id").value(id2))
+                .andExpect(jsonPath("$.content[1].description").value("demo2"))
+                .andExpect(jsonPath("$.content[1].travelComponentName").value(testComponentAfter.getName()))
+                .andExpect(jsonPath("$.content[1].username").value(testUser20.getUserName()))
+                .andExpect(jsonPath("$.content[1].isLike").value(false))
+                .andExpect(jsonPath("$.total").value(2));
+    }
+
+
 
     @Test
     void should_return_400_when_find_given_a_invalid_travel_component_id() throws Exception {
-        mockMvc.perform(org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get("/comments/-1")
+        mockMvc.perform(get("/comments")
+                        .param("travelPlanId", "-1")
+                        .param("page", "1")
+                        .param("size", "5")
                 )
                 .andExpect(status().isBadRequest());
     }

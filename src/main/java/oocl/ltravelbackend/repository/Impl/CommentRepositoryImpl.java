@@ -5,6 +5,8 @@ import oocl.ltravelbackend.common.exception.InvalidTravelComponentIdInputExcepti
 import oocl.ltravelbackend.model.entity.Comment;
 import oocl.ltravelbackend.repository.CommentRepository;
 import oocl.ltravelbackend.repository.dao.CommentJPARepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -29,10 +31,11 @@ public class CommentRepositoryImpl implements CommentRepository {
         return commentJPARepository.findByTravelComponentId(travelComponentId);
     }
 
-    public List<Comment> findByTravelComponentIdLimit(Long travelComponentId, int limit) {
-        if (travelComponentId == null || travelComponentId <= 0) {
-            throw new InvalidTravelComponentIdInputException("Travel Component ID is invalid.");
-        }
-        return commentJPARepository.findByTravelComponentIdLimit(travelComponentId, limit);
+
+
+    @Override
+    public Page<Comment> findByTravelComponentIdPaginated(Long travelPlanId, int page, int size) {
+        PageRequest pageRequest = PageRequest.of(page, size);
+        return commentJPARepository.findByTravelPlanId(travelPlanId, pageRequest);
     }
 }

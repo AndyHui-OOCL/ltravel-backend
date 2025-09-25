@@ -6,15 +6,11 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class CommentDTO {
-    private Long id;
-    private String description;
-    private Boolean isLike;
-
-    private String travelComponentName;
-
-    private String username;
+@Builder
+public class CommentReqDTO {
+    private Long travelPlanId;
+    private int page;
+    private int size;
 }
