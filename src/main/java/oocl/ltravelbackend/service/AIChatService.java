@@ -1,6 +1,8 @@
 package oocl.ltravelbackend.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import oocl.ltravelbackend.common.exception.DeepSeekApiException;
+import oocl.ltravelbackend.common.exception.PromptBuildException;
 import oocl.ltravelbackend.model.dto.AIChatDto;
 import oocl.ltravelbackend.model.dto.TravelPlanPromptDto;
 import oocl.ltravelbackend.model.entity.PlanImage;
@@ -67,13 +69,15 @@ public class AIChatService {
                     .user(prompt)
                     .call()
                     .content();
+            if (response == null || response.isEmpty()) {
+                response = "[]";
+            }
             return Arrays.stream(response.replaceAll("[\\[\\]\\s]", "").split(","))
                     .filter(s -> !s.isEmpty())
                     .map(Long::parseLong)
                     .collect(Collectors.toList());
-        } catch (Exception e) {
-            System.err.println("Error calling AI API: " + e.getMessage());
-            return List.of();
+        } catch (DeepSeekApiException e) {
+            return new ArrayList<>();
         }
     }
 
@@ -98,7 +102,7 @@ public class AIChatService {
             promptTemplate = promptTemplate.replace("{{ $travelPlans }}", travelPlansJson);
             return promptTemplate;
         } catch (Exception e) {
-            throw new RuntimeException("Failed to build prompt", e);
+            throw new PromptBuildException("Failed to build prompt");
         }
     }
 }
