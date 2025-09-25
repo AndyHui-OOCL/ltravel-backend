@@ -69,7 +69,7 @@ class CommentControllerTest {
                 .suggestionPlayTime(120)
                 .build();
         testComponentAfter = travelComponentRepository.save(testComponent);
-        testComponentId= testComponentAfter.getId();
+        testComponentId = testComponentAfter.getId();
     }
 
     @Test
@@ -100,7 +100,6 @@ class CommentControllerTest {
                 .andExpect(jsonPath("$[1].username").value(testUser20.getUserName()))
                 .andExpect(jsonPath("$[1].isLike").value(false));
     }
-
 
 
     @Test

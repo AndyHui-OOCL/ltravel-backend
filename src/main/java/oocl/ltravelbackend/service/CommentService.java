@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -21,7 +20,7 @@ public class CommentService {
             throw new InvalidTravelComponentIdInputException("Travel Component ID is invalid.");
         }
         List<Comment> comments = commentRepository.findByTravelComponentIdLimit(travelComponentId, 5);
-        return comments==null || comments.isEmpty() ? new ArrayList<>() : comments.stream()
+        return comments == null || comments.isEmpty() ? new ArrayList<>() : comments.stream()
                 .map(comment -> CommentDTO.builder()
                         .id(comment.getId())
                         .travelComponentName(comment.getTravelComponent().getName())

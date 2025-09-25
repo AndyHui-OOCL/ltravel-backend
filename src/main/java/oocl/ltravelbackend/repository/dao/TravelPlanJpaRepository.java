@@ -10,9 +10,9 @@ import org.springframework.data.repository.query.Param;
 public interface TravelPlanJpaRepository extends JpaRepository<TravelPlan, Long> {
 
     @Query("SELECT tp FROM TravelPlan tp WHERE " +
-           "(:city IS NULL OR :city = '' OR tp.cityName LIKE %:city%) AND " +
-           "(:tag IS NULL OR :tag = '' OR tp.tag LIKE %:tag%)")
+            "(:city IS NULL OR :city = '' OR tp.cityName LIKE %:city%) AND " +
+            "(:tag IS NULL OR :tag = '' OR tp.tag LIKE %:tag%)")
     Page<TravelPlan> findFilteredTravelPlans(@Param("city") String city,
-                                           @Param("tag") String tag,
-                                           Pageable pageable);
+                                             @Param("tag") String tag,
+                                             Pageable pageable);
 }

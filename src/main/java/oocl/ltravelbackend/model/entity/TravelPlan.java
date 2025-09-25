@@ -1,14 +1,13 @@
 package oocl.ltravelbackend.model.entity;
 
 import jakarta.persistence.*;
-import java.util.Objects;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
-import org.springframework.transaction.annotation.Transactional;
+import java.util.Objects;
 
 @Data
 @Entity
@@ -41,7 +40,7 @@ public class TravelPlan {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof TravelPlan plan)) return false;
-      return Objects.equals(id, plan.id);
+        return Objects.equals(id, plan.id);
     }
 
     @Override
