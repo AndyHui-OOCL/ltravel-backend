@@ -1,6 +1,7 @@
 package oocl.ltravelbackend.repository;
 
 import oocl.ltravelbackend.model.entity.Comment;
+import org.springframework.data.domain.Page;
 
 import java.util.List;
 
@@ -11,5 +12,6 @@ public interface CommentRepository {
 
     List<Comment> findByTravelComponentId(Long travelComponentId);
 
-    List<Comment> findByTravelComponentIdLimit(Long travelComponentId, int limit);
+
+    Page<Comment> findByTravelComponentIdPaginated(Long travelPlanId, int page, int size);
 }

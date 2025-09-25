@@ -1,10 +1,7 @@
 package oocl.ltravelbackend.common.handler;
 
 
-import oocl.ltravelbackend.common.exception.InvalidTravelComponentIdInputException;
-import oocl.ltravelbackend.common.exception.InvalidTravelPlanIdInputException;
-import oocl.ltravelbackend.common.exception.InvalidTravelPlanPaginationInputException;
-import oocl.ltravelbackend.common.exception.TravelPlanNotFoundException;
+import oocl.ltravelbackend.common.exception.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -34,6 +31,11 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(TravelPlanNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public String handleTravelPlanNotFoundException(Exception ex) {
+        return ex.getMessage();
+    }
+    @ExceptionHandler(InvalidCommentPaginationInputException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public String handleInvalidCommentPaginationInputException(Exception ex) {
         return ex.getMessage();
     }
 }
