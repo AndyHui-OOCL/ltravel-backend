@@ -1,6 +1,8 @@
 package oocl.ltravelbackend.repository.dao;
 
 import oocl.ltravelbackend.model.entity.Comment;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -11,6 +13,11 @@ public interface CommentJPARepository extends JpaRepository<Comment, Long> {
 
     List<Comment> findByTravelComponentId(Long travelComponentId);
 
-    @Query(value = "SELECT * FROM comment WHERE travel_component_id = :travelComponentId ORDER BY id LIMIT :limit", nativeQuery = true)
-    List<Comment> findByTravelComponentIdLimit(@Param("travelComponentId") Long travelComponentId, @Param("limit") Integer limit);
+
+    @Query(value = "select * from comment where comment.travel_component_id in (\n" +
+            "    select travel_days.travel_component_id from travel_days\n" +
+            "    where travel_days.travel_plan_id=:travelPlanId \n" +
+            ") " ,
+            nativeQuery = true)
+    Page<Comment> findByTravelPlanId(@Param("travelPlanId") Long travelPlanId, Pageable pageable);
 }
